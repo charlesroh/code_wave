@@ -1,0 +1,19 @@
+- generic [ref=e1]:
+  - banner [ref=e2]:
+    - link "코드웨이브 학생 화면" [ref=e3] [cursor=pointer]:
+      - /url: /
+      - img [ref=e5]
+      - text: 코드웨이브 · 선생님
+    - link "학생 화면으로" [ref=e7] [cursor=pointer]:
+      - /url: /
+  - main [ref=e8]:
+    - generic [ref=e9]:
+      - paragraph [ref=e10]: TEACHER ACCESS
+      - heading "선생님 대시보드" [level=1] [ref=e11]
+      - paragraph [ref=e12]: 문제 편집과 학생 결과를 보려면 선생님 비밀번호를 입력해 주세요.
+      - generic [ref=e13]:
+        - generic [ref=e14]:
+          - text: 선생님 비밀번호
+          - textbox "선생님 비밀번호" [active] [ref=e15]
+        - button "대시보드 열기" [ref=e16] [cursor=pointer]
+        - alert [ref=e17]

@@ -1,0 +1,99 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - link "코드웨이브 홈" [ref=e3] [cursor=pointer]:
+      - /url: "#"
+      - img [ref=e5]
+      - text: 코드웨이브
+    - generic [ref=e7]:
+      - button "이용 안내" [ref=e8] [cursor=pointer]
+      - generic "학생 프로필" [ref=e9]: 학
+  - main [ref=e10]:
+    - generic [ref=e11]:
+      - generic [ref=e12]:
+        - paragraph [ref=e13]: PYTHON PRACTICE · SET 01
+        - heading "오늘의 파이썬 문제" [level=1] [ref=e14]
+        - paragraph [ref=e15]: 한 문제씩 차근차근, 내 코드로 정답을 찾아보세요.
+      - generic [ref=e16]: 문제 세트 01 · 10문제
+    - generic [ref=e17]:
+      - complementary "문제 목록" [ref=e18]:
+        - generic [ref=e19]:
+          - generic [ref=e20]:
+            - generic [ref=e21]: 문제 목록
+            - generic [ref=e22]: 0 / 10 완료
+          - progressbar "문제 풀이 진행률" [ref=e23]
+        - list [ref=e24]:
+          - listitem [ref=e25]:
+            - button "01 두 수의 합" [ref=e26] [cursor=pointer]:
+              - generic [ref=e27]: "01"
+              - generic [ref=e28]: 두 수의 합
+          - listitem [ref=e30]:
+            - button "02 직사각형의 넓이" [ref=e31] [cursor=pointer]:
+              - generic [ref=e32]: "02"
+              - generic [ref=e33]: 직사각형의 넓이
+          - listitem [ref=e35]:
+            - button "03 짝수와 홀수" [ref=e36] [cursor=pointer]:
+              - generic [ref=e37]: "03"
+              - generic [ref=e38]: 짝수와 홀수
+          - listitem [ref=e40]:
+            - button "04 세 수 중 가장 큰 수" [ref=e41] [cursor=pointer]:
+              - generic [ref=e42]: "04"
+              - generic [ref=e43]: 세 수 중 가장 큰 수
+          - listitem [ref=e45]:
+            - button "05 1부터 N까지의 합" [ref=e46] [cursor=pointer]:
+              - generic [ref=e47]: "05"
+              - generic [ref=e48]: 1부터 N까지의 합
+          - listitem [ref=e50]:
+            - button "06 구구단 한 단" [ref=e51] [cursor=pointer]:
+              - generic [ref=e52]: "06"
+              - generic [ref=e53]: 구구단 한 단
+          - listitem [ref=e55]:
+            - button "07 문자열 거꾸로 출력" [ref=e56] [cursor=pointer]:
+              - generic [ref=e57]: "07"
+              - generic [ref=e58]: 문자열 거꾸로 출력
+          - listitem [ref=e60]:
+            - button "08 리스트의 최댓값" [ref=e61] [cursor=pointer]:
+              - generic [ref=e62]: "08"
+              - generic [ref=e63]: 리스트의 최댓값
+          - listitem [ref=e65]:
+            - button "09 모음 세기" [ref=e66] [cursor=pointer]:
+              - generic [ref=e67]: "09"
+              - generic [ref=e68]: 모음 세기
+          - listitem [ref=e70]:
+            - button "10 평균 구하기" [ref=e71] [cursor=pointer]:
+              - generic [ref=e72]: "10"
+              - generic [ref=e73]: 평균 구하기
+        - generic [ref=e75]:
+          - strong [ref=e76]: 채점은 이렇게 진행돼요
+          - text: 각 문제의 테스트케이스를 모두 통과하면 완료로 표시됩니다.
+      - generic [ref=e77]:
+        - article [ref=e78]:
+          - generic [ref=e79]:
+            - generic [ref=e80]: 입출력
+            - generic [ref=e81]:
+              - generic [ref=e82]: ●●○
+              - text: 쉬움
+          - heading "01. 두 수의 합" [level=2] [ref=e83]
+          - paragraph [ref=e85]: 정수 두 개가 주어집니다. 두 수의 합을 출력하는 프로그램을 작성하세요.
+          - heading "입력 예시와 출력 예시" [level=3] [ref=e86]
+          - generic [ref=e87]:
+            - generic [ref=e88]:
+              - generic [ref=e89]: 입력 예시
+              - generic [ref=e90]: 3 5
+            - generic [ref=e91]:
+              - generic [ref=e92]: 출력 예시
+              - generic [ref=e93]: "8"
+        - region "코드 입력" [ref=e94]:
+          - generic [ref=e95]:
+            - generic [ref=e96]:
+              - generic [ref=e97]: PY
+              - generic [ref=e98]: 코드 편집기
+            - generic [ref=e99]: 실행 버튼으로 예제를 확인할 수 있어요
+          - generic [ref=e100]:
+            - generic [ref=e101]: "1"
+            - textbox "Python 코드" [ref=e102]
+          - generic [ref=e103]:
+            - generic [ref=e104]: 채점 엔진은 처음 채점할 때 준비됩니다.
+            - generic [ref=e105]:
+              - button "예제 실행" [ref=e106] [cursor=pointer]
+              - button "채점하기" [ref=e107] [cursor=pointer]
+  - status

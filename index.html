@@ -1,0 +1,612 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f7f2">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23176b4b'/%3E%3Cpath d='m12 10-5 6 5 6m8-12 5 6-5 6m-3-15-3 18' fill='none' stroke='%23d9f36a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <title>코드웨이브 | 파이썬 연습장</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #19251f;
+      --muted: #718078;
+      --line: #e1e8e2;
+      --paper: #fff;
+      --canvas: #f6f7f2;
+      --green: #176b4b;
+      --green-dark: #10563c;
+      --lime: #d9f36a;
+      --soft-green: #edf5ed;
+      --red: #b9413d;
+      --amber: #94651a;
+      font-family: Inter, Pretendard, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+      font-synthesis: none;
+      text-rendering: optimizeLegibility;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; color: var(--ink); background: var(--canvas); min-width: 320px; }
+    button, textarea { font: inherit; }
+    button { cursor: pointer; }
+    .topbar { height: 68px; background: rgba(255,255,255,.92); border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; padding: 0 clamp(18px, 4vw, 64px); position: sticky; top: 0; z-index: 5; }
+    .brand { display: flex; align-items: center; gap: 11px; color: var(--ink); text-decoration: none; font-weight: 850; letter-spacing: -.05em; font-size: 20px; }
+    .brand-mark { width: 30px; height: 30px; border-radius: 9px 9px 9px 3px; display: grid; place-items: center; color: var(--lime); background: var(--green); }
+    .brand-mark svg { width: 18px; height: 18px; }
+    .top-right { display: flex; align-items: center; gap: 22px; color: var(--muted); font-size: 13px; font-weight: 700; }
+    .help-link { border: 0; padding: 8px 0; color: inherit; background: transparent; }
+    .teacher-link { color: var(--muted); text-decoration: none; }
+    .teacher-link:hover { color: var(--green); }
+    .avatar { width: 32px; height: 32px; border-radius: 50%; background: #f5d8b6; color: #6c4323; display: grid; place-items: center; font-size: 13px; font-weight: 800; }
+    main { max-width: 1440px; margin: auto; padding: 32px clamp(16px, 3vw, 44px) 50px; }
+    .intro { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 25px; }
+    .intro-tools { display: flex; align-items: end; gap: 10px; }
+    .nickname-field { display: grid; gap: 5px; color: var(--muted); font-size: 10px; font-weight: 750; }
+    .nickname-field input { width: 150px; min-height: 38px; padding: 0 11px; border: 1px solid #d8e1d9; border-radius: 8px; outline: none; color: var(--ink); background: white; font-size: 13px; }
+    .nickname-field input:focus { border-color: var(--green); box-shadow: 0 0 0 3px #176b4b20; }
+    .eyebrow { margin: 0 0 8px; color: var(--green); font-size: 12px; font-weight: 850; letter-spacing: .11em; text-transform: uppercase; }
+    h1 { margin: 0; font-size: clamp(25px, 3vw, 34px); line-height: 1.2; letter-spacing: -.055em; }
+    .intro-copy { margin: 8px 0 0; color: var(--muted); font-size: 14px; }
+    .set-pill { border: 1px solid #cbd9ce; border-radius: 100px; padding: 10px 14px; color: var(--green); background: #fff; font-weight: 750; font-size: 13px; white-space: nowrap; }
+    .workspace { display: grid; grid-template-columns: 264px minmax(0, 1fr); gap: 19px; align-items: start; }
+    .sidebar, .panel { background: var(--paper); border: 1px solid var(--line); border-radius: 14px; }
+    .sidebar { overflow: hidden; }
+    .side-head { padding: 18px 18px 15px; border-bottom: 1px solid var(--line); }
+    .side-title { display: flex; justify-content: space-between; align-items: center; font-weight: 800; font-size: 14px; }
+    .count { color: var(--muted); font-weight: 650; font-size: 12px; }
+    .progress-track { height: 5px; border-radius: 9px; margin-top: 14px; background: #edf0ec; overflow: hidden; }
+    .progress-fill { height: 100%; width: 0; border-radius: inherit; background: var(--green); transition: width .25s ease; }
+    .level-switch { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 5px; padding: 10px 8px; border-bottom: 1px solid var(--line); }
+    .level-button { min-height: 49px; padding: 6px 4px; border: 1px solid var(--line); border-radius: 8px; color: #58675d; background: white; font-size: 11px; font-weight: 800; }
+    .level-button small { display: block; margin-top: 3px; color: var(--muted); font-size: 9px; font-weight: 650; }
+    .level-button[aria-pressed="true"] { border-color: var(--green); color: white; background: var(--green); }
+    .level-button[aria-pressed="true"] small { color: #d9ebdf; }
+    .level-button:disabled { color: #9aa49c; background: #f6f7f4; cursor: not-allowed; }
+    .problem-list { list-style: none; margin: 0; padding: 8px; }
+    .problem-button { width: 100%; min-height: 48px; display: flex; align-items: center; gap: 11px; padding: 7px 9px; border: 0; border-radius: 9px; background: transparent; text-align: left; color: var(--ink); }
+    .problem-button:hover { background: #f4f7f3; }
+    .problem-button[aria-current="true"] { background: var(--soft-green); color: var(--green-dark); }
+    .problem-number { width: 28px; height: 28px; flex: 0 0 28px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 8px; color: #68756d; font: 700 12px/1 Inter, sans-serif; background: #fff; }
+    .problem-button[aria-current="true"] .problem-number { border-color: var(--green); color: white; background: var(--green); }
+    .problem-name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13px; font-weight: 720; }
+    .problem-status { width: 17px; height: 17px; display: grid; place-items: center; color: var(--green); }
+    .problem-status svg { width: 16px; height: 16px; }
+    .side-foot { padding: 13px 17px; border-top: 1px solid var(--line); color: var(--muted); font-size: 11px; line-height: 1.6; }
+    .side-foot strong { color: var(--ink); }
+    .content { min-width: 0; }
+    .panel { padding: clamp(19px, 2.6vw, 30px); }
+    .problem-topline { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 15px; }
+    .tag { padding: 6px 9px; border-radius: 6px; color: var(--green); background: var(--soft-green); font-size: 11px; font-weight: 850; }
+    .difficulty { display: flex; align-items: center; gap: 5px; color: var(--muted); font-size: 12px; font-weight: 650; }
+    .difficulty span { color: #e3a52a; letter-spacing: 1px; }
+    h2 { margin: 0; font-size: clamp(23px, 3vw, 30px); letter-spacing: -.05em; }
+    .statement { max-width: 900px; color: #425047; font-size: 15px; line-height: 1.8; }
+    .statement p { margin: 13px 0; }
+    .section-title { margin: 20px 0 8px; font-size: 13px; font-weight: 850; }
+    .sample-grid { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--line); border-radius: 9px; overflow: hidden; }
+    .sample-col + .sample-col { border-left: 1px solid var(--line); }
+    .sample-label { padding: 8px 12px; color: var(--muted); background: #f8faf7; font-size: 11px; font-weight: 800; border-bottom: 1px solid var(--line); }
+    pre { margin: 0; padding: 11px 12px; white-space: pre-wrap; color: #28382e; font: 13px/1.6 "SFMono-Regular", Consolas, monospace; }
+    .editor-panel { margin-top: 17px; padding: 0; overflow: hidden; }
+    .editor-head { min-height: 48px; display: flex; align-items: center; justify-content: space-between; padding: 0 17px; border-bottom: 1px solid #303a37; color: #e5ece7; background: #202927; }
+    .editor-label { display: flex; align-items: center; gap: 9px; font-size: 12px; font-weight: 750; }
+    .python-badge { color: #c1d66a; font: 700 11px/1 Inter, sans-serif; }
+    .editor-hint { color: #a4b1aa; font-size: 11px; }
+    .editor-wrap { display: grid; grid-template-columns: 43px minmax(0,1fr); min-height: 310px; background: #202927; }
+    .line-numbers { padding: 17px 10px 17px 0; color: #718079; text-align: right; white-space: pre; user-select: none; font: 13px/1.7 "SFMono-Regular", Consolas, monospace; }
+    #code { display: block; width: 100%; min-height: 310px; padding: 17px 18px 17px 0; border: 0; outline: 0; resize: vertical; color: #e1e9e4; background: transparent; tab-size: 4; white-space: pre; overflow: auto; font: 13px/1.7 "SFMono-Regular", Consolas, monospace; caret-color: var(--lime); }
+    #code::selection { background: #35614c; }
+    .editor-bottom { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 17px; border-top: 1px solid #394440; background: #202927; }
+    .editor-bottom small { color: #a4b1aa; font-size: 11px; }
+    .actions { display: flex; gap: 9px; }
+    .btn { min-height: 42px; padding: 0 17px; border: 1px solid transparent; border-radius: 8px; font-size: 13px; font-weight: 800; transition: background .15s, transform .1s; }
+    .btn:active { transform: translateY(1px); }
+    .btn-secondary { color: #e1e9e4; border-color: #52605a; background: transparent; }
+    .btn-secondary:hover { background: #303a37; }
+    .btn-primary { color: #fff; background: var(--green); }
+    .btn-primary:hover { background: #21845e; }
+    .btn-primary:disabled { opacity: .65; cursor: wait; }
+    .result { display: none; margin-top: 15px; padding: 17px 19px; border: 1px solid var(--line); border-radius: 11px; background: #fff; }
+    .result.show { display: block; }
+    .result.success { border-color: #b8dcc5; background: #f2faf4; }
+    .result.failed { border-color: #eed0cc; background: #fff7f5; }
+    .result-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 14px; font-weight: 850; }
+    .result-copy { margin: 6px 0 0; color: #5f6d64; font-size: 12px; line-height: 1.6; }
+    .test-list { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 13px; }
+    .test-chip { padding: 6px 9px; border-radius: 6px; color: #58675d; background: #eef1ed; font-size: 11px; font-weight: 750; }
+    .test-chip.pass { color: #176b4b; background: #ddf2e3; }
+    .test-chip.fail { color: #a73832; background: #f8e2de; }
+    .next-row { display: flex; justify-content: flex-end; margin-top: 13px; }
+    .next-button { min-height: 39px; padding: 0 13px; border: 1px solid #cbd9ce; border-radius: 8px; color: var(--green); background: white; font-size: 12px; font-weight: 800; }
+    .next-button:hover { background: var(--soft-green); }
+    .tutor-panel { margin-top: 17px; padding: 0; overflow: hidden; }
+    .tutor-head { display: flex; align-items: center; gap: 12px; padding: 17px 20px; border-bottom: 1px solid var(--line); }
+    .tutor-mark { width: 36px; height: 36px; display: grid; place-items: center; flex: 0 0 36px; border-radius: 11px; color: var(--green); background: var(--soft-green); }
+    .tutor-mark svg { width: 20px; height: 20px; }
+    .tutor-heading { flex: 1; }
+    .tutor-heading h3 { margin: 0; font-size: 15px; letter-spacing: -.025em; }
+    .tutor-heading p { margin: 3px 0 0; color: var(--muted); font-size: 11px; }
+    .ai-badge { padding: 5px 7px; border: 1px solid var(--line); border-radius: 5px; color: var(--muted); font: 700 9px/1 Inter, sans-serif; letter-spacing: .06em; }
+    .tutor-messages { display: flex; flex-direction: column; gap: 11px; max-height: 350px; min-height: 120px; overflow-y: auto; padding: 17px 20px; background: #f9fbf8; }
+    .tutor-message { max-width: min(88%, 680px); padding: 11px 13px; border: 1px solid #e2e9e2; border-radius: 4px 13px 13px 13px; color: #344239; background: white; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 13px; line-height: 1.7; }
+    .tutor-message.user { align-self: flex-end; border-color: #c9e1d0; border-radius: 13px 4px 13px 13px; color: #174c38; background: #eaf5ed; }
+    .tutor-message.pending { color: var(--muted); }
+    .tutor-prompts { display: flex; flex-wrap: wrap; gap: 7px; padding: 13px 20px 0; }
+    .tutor-prompt { min-height: 34px; padding: 0 10px; border: 1px solid #dfe7df; border-radius: 7px; color: #536259; background: white; font-size: 11px; font-weight: 700; }
+    .tutor-prompt:hover { border-color: #9cbaa5; color: var(--green); }
+    .tutor-form { display: flex; align-items: end; gap: 9px; padding: 12px 20px 0; }
+    .tutor-input { flex: 1; min-width: 0; min-height: 48px; max-height: 120px; resize: vertical; padding: 12px; border: 1px solid #d8e1d9; border-radius: 9px; outline: none; color: var(--ink); background: white; font: inherit; font-size: 13px; line-height: 1.5; }
+    .tutor-input:focus { border-color: var(--green); box-shadow: 0 0 0 3px #176b4b20; }
+    .tutor-send { min-height: 46px; }
+    .tutor-privacy { margin: 0; padding: 9px 20px 15px; color: var(--muted); font-size: 10px; line-height: 1.5; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+    .toast { position: fixed; left: 50%; bottom: 22px; z-index: 10; max-width: calc(100vw - 32px); transform: translate(-50%, 20px); opacity: 0; pointer-events: none; padding: 11px 16px; border-radius: 9px; color: white; background: #202927; font-size: 13px; transition: .2s; }
+    .toast.show { transform: translate(-50%, 0); opacity: 1; }
+    .modal-backdrop { display: none; position: fixed; inset: 0; z-index: 8; place-items: center; padding: 18px; background: rgba(18,29,23,.45); }
+    .modal-backdrop.show { display: grid; }
+    .modal { width: min(420px,100%); padding: 25px; border-radius: 14px; background: white; box-shadow: 0 20px 60px #0002; }
+    .modal h3 { margin: 0 0 9px; font-size: 19px; letter-spacing: -.04em; }
+    .modal p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.75; }
+    .modal .btn { margin-top: 20px; width: 100%; }
+    @media (max-width: 820px) {
+      main { padding-top: 24px; }
+      .workspace { grid-template-columns: 1fr; }
+      .sidebar { order: 2; }
+      .content { order: 1; }
+      .problem-list { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 3px; }
+      .side-foot { display: none; }
+    }
+    @media (max-width: 520px) {
+      .topbar { height: 60px; }
+      .top-right { gap: 12px; }
+      .help-link { font-size: 12px; }
+      .teacher-link { font-size: 11px; }
+      main { padding-inline: 12px; }
+      .intro { align-items: start; flex-direction: column; gap: 12px; }
+      .intro-tools { align-items: end; flex-wrap: wrap; }
+      .set-pill { padding: 8px 11px; }
+      .panel { padding: 17px; }
+      .statement { font-size: 14px; }
+      .sample-grid { grid-template-columns: 1fr; }
+      .sample-col + .sample-col { border-left: 0; border-top: 1px solid var(--line); }
+      .editor-wrap { min-height: 270px; }
+      #code { min-height: 270px; }
+      .editor-hint { display: none; }
+      .editor-bottom { align-items: flex-start; flex-direction: column; }
+      .actions { width: 100%; }
+      .actions .btn { flex: 1; }
+      .problem-list { grid-template-columns: 1fr 1fr; }
+      .problem-name { font-size: 12px; }
+      .tutor-head { padding: 15px; }
+      .tutor-messages { padding: 14px 15px; }
+      .tutor-prompts { padding-inline: 15px; }
+      .tutor-form { padding-inline: 15px; }
+      .tutor-privacy { padding-inline: 15px; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="코드웨이브 홈">
+      <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="m8 7-5 5 5 5M16 7l5 5-5 5m-2-12-4 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      코드웨이브
+    </a>
+    <div class="top-right"><a class="teacher-link" href="/teacher">선생님 화면</a><button class="help-link" id="helpButton">이용 안내</button><span class="avatar" aria-label="학생 프로필">학</span></div>
+  </header>
+  <main>
+    <section class="intro">
+      <div>
+        <p class="eyebrow">PYTHON LEARNING TRACK</p>
+        <h1>오늘의 파이썬 문제</h1>
+        <p class="intro-copy">기초 문제를 풀고 실력이 쌓이면 응용·심화 단계가 열립니다.</p>
+      </div>
+      <div class="intro-tools">
+        <label class="nickname-field" for="studentNickname">제출 결과에 표시할 닉네임<input id="studentNickname" maxlength="24" autocomplete="nickname" placeholder="예: 코드토끼"></label>
+        <div class="set-pill"><span id="currentLevelLabel">기초</span> 단계 <span aria-hidden="true">·</span> <span id="problemCount">10문제</span></div>
+      </div>
+    </section>
+    <div class="workspace">
+      <aside class="sidebar" aria-label="문제 목록">
+        <div class="side-head">
+          <div class="side-title"><span>단계별 문제</span><span class="count" id="progressText">기초 0 / 10</span></div>
+          <div class="progress-track" role="progressbar" aria-label="문제 풀이 진행률" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0"><div class="progress-fill" id="progressFill"></div></div>
+        </div>
+        <nav class="level-switch" id="levelSwitch" aria-label="학습 단계"></nav>
+        <ol class="problem-list" id="problemList"></ol>
+        <div class="side-foot"><strong>채점은 이렇게 진행돼요</strong><br>각 문제의 테스트케이스를 모두 통과하면 완료로 표시됩니다.</div>
+      </aside>
+      <section class="content" aria-live="polite">
+        <article class="panel" id="problemPanel">
+          <div class="problem-topline"><span class="tag" id="topicTag">입출력</span><span class="difficulty"><span aria-hidden="true">●●○</span><span id="difficultyLabel">기초 단계</span></span></div>
+          <h2 id="problemTitle"></h2>
+          <div class="statement" id="problemStatement"></div>
+          <h3 class="section-title">입력 예시와 출력 예시</h3>
+          <div class="sample-grid">
+            <div class="sample-col"><div class="sample-label">입력 예시</div><pre id="sampleInput"></pre></div>
+            <div class="sample-col"><div class="sample-label">출력 예시</div><pre id="sampleOutput"></pre></div>
+          </div>
+        </article>
+        <section class="panel editor-panel" aria-label="코드 입력">
+          <div class="editor-head"><div class="editor-label"><span class="python-badge">PY</span><span>코드 편집기</span></div><span class="editor-hint">실행 버튼으로 예제를 확인할 수 있어요</span></div>
+          <div class="editor-wrap"><div class="line-numbers" id="lineNumbers" aria-hidden="true">1</div><textarea id="code" spellcheck="false" autocapitalize="off" autocomplete="off" aria-label="Python 코드" wrap="off"></textarea></div>
+          <div class="editor-bottom"><small id="runtimeStatus">채점 엔진은 처음 채점할 때 준비됩니다.</small><div class="actions"><button class="btn btn-secondary" id="runButton">예제 실행</button><button class="btn btn-primary" id="submitButton">채점하기</button></div></div>
+        </section>
+        <section class="result" id="result" aria-live="polite"></section>
+        <section class="panel tutor-panel" aria-label="AI 튜터">
+          <div class="tutor-head">
+            <span class="tutor-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3.5a8.5 8.5 0 0 0-7.2 13l-.8 4.1 4.1-.9A8.5 8.5 0 1 0 12 3.5Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"/></svg></span>
+            <div class="tutor-heading"><h3>AI 튜터</h3><p>정답 대신, 스스로 풀 수 있는 힌트를 드려요.</p></div>
+            <span class="ai-badge">GEMINI</span>
+          </div>
+          <div class="tutor-messages" id="tutorMessages" role="log" aria-live="polite" aria-relevant="additions text"></div>
+          <div class="tutor-prompts" aria-label="추천 질문">
+            <button class="tutor-prompt" type="button" data-prompt="첫 번째 힌트만 주세요.">첫 힌트 받기</button>
+            <button class="tutor-prompt" type="button" data-prompt="제가 작성한 코드가 어떤 순서로 동작하는지 설명해 주세요.">내 코드 설명</button>
+            <button class="tutor-prompt" type="button" data-prompt="어디부터 확인하면 좋을지 알려 주세요. 정답 코드는 말하지 말아 주세요.">오류 찾기</button>
+          </div>
+          <form class="tutor-form" id="tutorForm">
+            <label class="sr-only" for="tutorInput">AI 튜터에게 질문하기</label>
+            <textarea class="tutor-input" id="tutorInput" rows="2" maxlength="1200" placeholder="막힌 부분이나 궁금한 점을 적어 보세요"></textarea>
+            <button class="btn btn-primary tutor-send" id="tutorSend" type="submit">질문</button>
+          </form>
+          <p class="tutor-privacy">현재 문제와 작성한 코드, 질문이 AI 서비스로 전송됩니다. 이름이나 연락처 같은 개인정보는 입력하지 마세요.</p>
+        </section>
+      </section>
+    </div>
+  </main>
+  <div class="toast" id="toast" role="status"></div>
+  <div class="modal-backdrop" id="helpModal" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
+    <div class="modal"><h3 id="helpTitle">코드웨이브 이용 안내</h3><p>기초 문제를 풀고 각 단계 문제의 70% 이상을 통과하면 다음 단계가 열립니다. '예제 실행'은 화면에 보이는 입력값으로 확인하고, '채점하기'는 테스트케이스를 검사합니다. 결과를 선생님 대시보드에 저장하려면 먼저 닉네임을 적어 주세요.<br><br>코드는 브라우저에서 실행됩니다. 연습용 테스트케이스도 브라우저로 전송되므로 숨겨진 시험 문제에는 적합하지 않습니다. 실제 시험용 저지는 별도의 안전한 실행 서버가 필요합니다.</p><button class="btn btn-primary" id="closeHelp">확인</button></div>
+  </div>
+  <script>
+    let problems = [];
+    const starter = 'data = input().split()\na, b = map(int, data)\nprint(a + b)';
+    const learningLevels = [
+      { id: 'basic', label: '기초' },
+      { id: 'intermediate', label: '응용' },
+      { id: 'advanced', label: '심화' }
+    ];
+    const state = { active: -1, level: 'basic', solved: new Set(), results: new Map(), editor: new Map(), tutorHistory: [], tutorGeneration: 0, tutorBusy: false };
+    const $ = (id) => document.getElementById(id);
+    const escapeHtml = (value) => value.replace(/[&<>"']/g, (char) => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' })[char]);
+
+    function persistProgress() {
+      try {
+        localStorage.setItem('codewave-progress-v1', JSON.stringify({
+          active: state.active,
+          activeProblemId: problems[state.active]?.id || null,
+          level: state.level,
+          solved: [...state.solved],
+          results: [...state.results],
+          editor: [...state.editor]
+        }));
+      } catch { showToast('기록을 저장하지 못했어요. 브라우저 저장 공간을 확인해 주세요.'); }
+    }
+    function restoreProgress() {
+      try {
+        const saved = JSON.parse(localStorage.getItem('codewave-progress-v1') || 'null');
+        if (!saved) return;
+        const toProblemId = (key) => typeof key === 'number' ? problems[key]?.id : problems.some((problem) => problem.id === key) ? key : null;
+        const activeById = saved.activeProblemId ? problems.findIndex((problem) => problem.id === saved.activeProblemId) : -1;
+        state.active = activeById >= 0 ? activeById : Number.isInteger(saved.active) && saved.active >= 0 && saved.active < problems.length ? saved.active : -1;
+        state.solved = new Set((saved.solved || []).map(toProblemId).filter(Boolean));
+        state.results = new Map((saved.results || []).map(([key, value]) => [toProblemId(key), value]).filter(([id]) => id));
+        state.editor = new Map((saved.editor || []).map(([key, code]) => [toProblemId(key), code]).filter(([id, code]) => id && typeof code === 'string'));
+        state.level = learningLevels.some((level) => level.id === saved.level) ? saved.level : problems[state.active]?.level || 'basic';
+        if (!getUnlockedLevels().includes(state.level)) state.level = getUnlockedLevels().at(-1) || 'basic';
+      } catch { localStorage.removeItem('codewave-progress-v1'); }
+    }
+
+    function levelProblems(levelId) { return problems.map((problem, index) => ({ problem, index })).filter(({ problem }) => problem.level === levelId); }
+    function levelLabel(levelId) { return learningLevels.find((level) => level.id === levelId)?.label || '기초'; }
+    function getUnlockedLevels() {
+      const unlocked = [learningLevels[0].id];
+      for (let index = 1; index < learningLevels.length; index++) {
+        const previous = levelProblems(learningLevels[index - 1].id);
+        const mastered = previous.filter(({ problem }) => state.solved.has(problem.id)).length;
+        if (previous.length === 0 || mastered >= Math.ceil(previous.length * 0.7)) unlocked.push(learningLevels[index].id);
+        else break;
+      }
+      return unlocked;
+    }
+    function renderLevelSwitch() {
+      const unlocked = getUnlockedLevels();
+      $('levelSwitch').innerHTML = learningLevels.map((level) => {
+        const items = levelProblems(level.id);
+        const solved = items.filter(({ problem }) => state.solved.has(problem.id)).length;
+        const locked = !unlocked.includes(level.id);
+        return `<button class="level-button" type="button" data-level="${level.id}" aria-pressed="${state.level === level.id}" ${locked ? 'disabled' : ''}>${level.label}${locked ? '<small>잠김</small>' : `<small>${solved}/${items.length} 완료</small>`}</button>`;
+      }).join('');
+      $('levelSwitch').querySelectorAll('[data-level]:not(:disabled)').forEach((button) => button.addEventListener('click', () => chooseLevel(button.dataset.level)));
+    }
+    function currentLevelIndices() { return levelProblems(state.level).map(({ index }) => index); }
+    function chooseLevel(levelId) {
+      if (!getUnlockedLevels().includes(levelId)) return;
+      state.level = levelId;
+      const items = levelProblems(levelId);
+      const next = items.find(({ problem }) => !state.solved.has(problem.id)) || items[0];
+      if (next) selectProblem(next.index);
+      else renderList();
+      persistProgress();
+    }
+
+    function renderList() {
+      const items = levelProblems(state.level);
+      const solved = items.filter(({ problem }) => state.solved.has(problem.id)).length;
+      renderLevelSwitch();
+      $('problemList').innerHTML = items.map(({ problem, index }, position) => `<li><button class="problem-button" data-index="${index}" aria-current="${index === state.active}"><span class="problem-number">${String(position + 1).padStart(2, '0')}</span><span class="problem-name">${escapeHtml(problem.title)}</span><span class="problem-status">${state.solved.has(problem.id) ? '<svg viewBox="0 0 20 20" fill="none" aria-label="통과"><path d="m4 10 4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>' : ''}</span></button></li>`).join('');
+      $('problemList').querySelectorAll('button').forEach((button) => button.addEventListener('click', () => selectProblem(Number(button.dataset.index))));
+      $('progressText').textContent = `${levelLabel(state.level)} ${solved} / ${items.length} 완료`;
+      $('progressFill').style.width = `${items.length ? solved / items.length * 100 : 0}%`;
+      $('problemCount').textContent = `${items.length}문제`;
+      $('currentLevelLabel').textContent = levelLabel(state.level);
+      document.querySelector('[role="progressbar"]').setAttribute('aria-valuenow', solved);
+      document.querySelector('[role="progressbar"]').setAttribute('aria-valuemax', items.length);
+    }
+    function syncLineNumbers() {
+      const count = $('code').value.split('\n').length;
+      $('lineNumbers').textContent = Array.from({ length: count }, (_, index) => index + 1).join('\n');
+      $('lineNumbers').scrollTop = $('code').scrollTop;
+    }
+    function selectProblem(index) {
+      const problem = problems[index];
+      if (!problem) return;
+      const problemLevel = problem.level || 'basic';
+      if (!getUnlockedLevels().includes(problemLevel)) { showToast('이 단계는 이전 단계 문제를 더 풀면 열려요.'); return; }
+      if (state.active >= 0 && state.active !== index) state.editor.set(problems[state.active].id, $('code').value);
+      if (state.active !== index) resetTutorChat();
+      state.active = index;
+      state.level = problemLevel;
+      $('topicTag').textContent = problem.topic;
+      $('problemTitle').textContent = `${String(currentLevelIndices().indexOf(index) + 1).padStart(2, '0')}. ${problem.title}`;
+      $('difficultyLabel').textContent = `${levelLabel(problemLevel)} 단계`;
+      const statement = escapeHtml(problem.statement).replace(/&lt;code&gt;/g, '<code>').replace(/&lt;\/code&gt;/g, '</code>').replace(/\n/g, '<br>');
+      $('problemStatement').innerHTML = `<p>${statement}</p>`;
+      $('sampleInput').textContent = problem.input;
+      $('sampleOutput').textContent = problem.output;
+      $('code').value = state.editor.get(problem.id) ?? (index === 0 ? starter : '# 코드를 작성해 보세요.\n');
+      syncLineNumbers();
+      renderList();
+      renderResult();
+      persistProgress();
+    }
+    function nextStep() {
+      const indices = currentLevelIndices();
+      const next = indices.find((index) => index !== state.active && !state.solved.has(problems[index].id));
+      if (next !== undefined) return { index: next, label: '다음 미완료 문제' };
+      const unlocked = getUnlockedLevels();
+      const currentPosition = learningLevels.findIndex((level) => level.id === state.level);
+      const nextLevel = learningLevels.slice(currentPosition + 1).find((level) => unlocked.includes(level.id));
+      return nextLevel ? { level: nextLevel.id, label: `${nextLevel.label} 단계 시작하기` } : null;
+    }
+    function renderResult() {
+      const problem = problems[state.active];
+      const result = state.results.get(problem?.id);
+      const box = $('result');
+      if (!result) { box.className = 'result'; box.innerHTML = ''; return; }
+      box.className = `result show ${result.pass ? 'success' : 'failed'}`;
+      const nextAction = nextStep();
+      box.innerHTML = `<div class="result-head"><span>${result.pass ? '정답입니다!' : '아직 통과하지 못한 테스트가 있어요'}</span><span>${result.passed} / ${result.total} 테스트 통과</span></div><p class="result-copy">${escapeHtml(result.message)}</p><div class="test-list">${result.tests.map((pass, index) => `<span class="test-chip ${pass ? 'pass' : 'fail'}">테스트 ${index + 1} · ${pass ? '통과' : '실패'}</span>`).join('')}</div>${nextAction ? `<div class="next-row"><button class="next-button" id="nextProblem">${nextAction.label} →</button></div>` : ''}`;
+      const nextButton = $('nextProblem');
+      if (nextButton) nextButton.addEventListener('click', () => nextAction.level ? chooseLevel(nextAction.level) : selectProblem(nextAction.index));
+    }
+    function normalizeOutput(value) { return value.replace(/\r\n/g, '\n').trim().split('\n').map((line) => line.trim()).join('\n'); }
+    function createWorker() {
+      const source = `
+        let pyodide;
+        self.onmessage = async (event) => {
+          try {
+            if (!pyodide) {
+              importScripts('https://cdn.jsdelivr.net/pyodide/v0.27.7/full/pyodide.js');
+              pyodide = await loadPyodide();
+            }
+            const { code, input } = event.data;
+            pyodide.globals.set('__judge_code', code);
+            pyodide.globals.set('__judge_input', input);
+            const output = await pyodide.runPythonAsync(\`
+import io, sys, contextlib
+_old_stdin = sys.stdin
+_capture = io.StringIO()
+sys.stdin = io.StringIO(__judge_input)
+try:
+    with contextlib.redirect_stdout(_capture):
+        exec(compile(__judge_code, "<student>", "exec"), {"__name__": "__main__"})
+finally:
+    sys.stdin = _old_stdin
+_capture.getvalue()
+\`);
+            self.postMessage({ output: String(output), ready: true });
+          } catch (error) {
+            self.postMessage({ error: String(error), ready: true });
+          }
+        };
+      `;
+      return new Worker(URL.createObjectURL(new Blob([source], { type: 'text/javascript' })));
+    }
+    async function execute(code, input, worker, timeout = 4000) {
+      return new Promise((resolve, reject) => {
+        const timer = setTimeout(() => { worker.terminate(); reject(new Error('실행 시간이 너무 길어요. 반복문을 확인해 주세요.')); }, timeout);
+        worker.onmessage = (event) => { clearTimeout(timer); event.data.error ? reject(new Error(event.data.error)) : resolve(event.data.output); };
+        worker.onerror = (event) => { clearTimeout(timer); worker.terminate(); reject(new Error(event.message || 'Python 실행 엔진을 불러오지 못했어요. 인터넷 연결을 확인해 주세요.')); };
+        worker.postMessage({ code, input });
+      });
+    }
+    async function judge(isSample) {
+      const problemIndex = state.active;
+      const button = isSample ? $('runButton') : $('submitButton');
+      const code = $('code').value;
+      if (!code.trim()) { showToast('먼저 코드를 입력해 주세요.'); $('code').focus(); return; }
+      const nickname = $('studentNickname').value.trim();
+      if (!isSample && !nickname) { showToast('결과에 표시할 닉네임을 먼저 적어 주세요.'); $('studentNickname').focus(); return; }
+      button.disabled = true;
+      const status = $('runtimeStatus');
+      status.textContent = 'Python 실행 엔진을 준비하고 있어요…';
+      const worker = createWorker();
+      const unlockedBefore = new Set(getUnlockedLevels());
+      try {
+        const problem = problems[problemIndex];
+        const tests = isSample ? [[problem.input, problem.output]] : problem.tests;
+        const outcomes = [];
+        for (let index = 0; index < tests.length; index++) {
+          status.textContent = `테스트케이스 ${index + 1} / ${tests.length} 확인 중…`;
+          const output = await execute(code, tests[index][0], worker, index === 0 ? 45000 : 4000);
+          outcomes.push(normalizeOutput(output) === normalizeOutput(tests[index][1]));
+          if (isSample) {
+            const passed = outcomes[0];
+            state.results.set(problem.id, { pass: passed, passed: passed ? 1 : 0, total: 1, tests: outcomes, message: passed ? '예제 입력에서 기대한 출력이 나왔어요.' : '출력이 예제와 달라요. 입력과 출력 형식을 확인해 보세요.' });
+            if (state.active === problemIndex) renderResult();
+          }
+        }
+        status.textContent = '브라우저에서 Python으로 채점합니다.';
+        if (!isSample) {
+          const passed = outcomes.filter(Boolean).length;
+          const allPassed = passed === outcomes.length;
+          state.results.set(problem.id, { pass: allPassed, passed, total: outcomes.length, tests: outcomes, message: allPassed ? '준비된 테스트케이스를 모두 통과했어요. 잘하셨어요!' : '출력 형식을 확인하고 다시 도전해 보세요. 각 줄의 공백과 줄바꿈도 채점에 포함됩니다.' });
+          if (allPassed) state.solved.add(problem.id);
+          state.editor.set(problem.id, code);
+          persistProgress();
+          renderList();
+          if (state.active === problemIndex) renderResult();
+          const newlyUnlocked = getUnlockedLevels().find((levelId) => !unlockedBefore.has(levelId));
+          if (newlyUnlocked) showToast(`${levelLabel(newlyUnlocked)} 단계가 열렸어요! 더 도전해 보세요.`);
+          void saveSubmission(nickname, problem, passed, outcomes.length);
+        }
+      } catch (error) {
+        const errorText = error.message || String(error);
+        status.textContent = '실행 중 문제가 생겼어요.';
+        state.results.set(problems[problemIndex].id, { pass: false, passed: 0, total: isSample ? 1 : problems[problemIndex].tests.length, tests: [false], message: `코드 오류 또는 실행 시간 초과: ${errorText.slice(0, 220)}` });
+        persistProgress();
+        if (state.active === problemIndex) renderResult();
+        if (!isSample && nickname) void saveSubmission(nickname, problems[problemIndex], 0, problems[problemIndex].tests.length);
+      } finally { worker.terminate(); button.disabled = false; }
+    }
+    async function saveSubmission(nickname, problem, passed, total) {
+      try {
+        const response = await fetch('/api/submissions', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ nickname, problemId: problem.id, passed, total })
+        });
+        if (!response.ok) throw new Error('결과 저장 실패');
+        $('runtimeStatus').textContent = '채점 결과가 선생님 대시보드에 저장됐어요.';
+      } catch {
+        showToast('채점은 완료됐지만 결과 기록을 저장하지 못했어요.');
+      }
+    }
+    let toastTimer;
+    function showToast(message) { const toast = $('toast'); toast.textContent = message; toast.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => toast.classList.remove('show'), 2400); }
+    function appendTutorMessage(role, text) {
+      const message = document.createElement('div');
+      message.className = `tutor-message ${role === 'user' ? 'user' : ''}`.trim();
+      message.textContent = text;
+      $('tutorMessages').append(message);
+      $('tutorMessages').scrollTop = $('tutorMessages').scrollHeight;
+      return message;
+    }
+    function resetTutorChat() {
+      state.tutorGeneration++;
+      state.tutorBusy = false;
+      state.tutorHistory = [];
+      $('tutorMessages').replaceChildren();
+      appendTutorMessage('assistant', '안녕하세요! 문제나 작성한 코드에서 막힌 부분을 알려 주세요. 정답을 바로 보여주기보다, 스스로 풀 수 있는 힌트를 드릴게요.');
+      $('tutorSend').disabled = false;
+      $('tutorInput').disabled = false;
+    }
+    async function askTutor(question) {
+      if (state.tutorBusy) return;
+      const problemIndex = state.active;
+      const generation = state.tutorGeneration;
+      const problem = problems[problemIndex];
+      const code = $('code').value;
+      const result = state.results.get(problem.id);
+      state.tutorBusy = true;
+      const previousTurns = state.tutorHistory.slice(-8);
+      state.tutorHistory.push({ role: 'user', text: question });
+      appendTutorMessage('user', question);
+      const pending = appendTutorMessage('assistant', '문제를 살펴보고 있어요…');
+      pending.classList.add('pending');
+      $('tutorSend').disabled = true;
+      $('tutorInput').disabled = true;
+      try {
+        const response = await fetch('/api/tutor', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            question,
+            title: problem.title,
+            statement: problem.statement.replace(/<[^>]*>/g, ''),
+            code,
+            result: result ? `${result.passed}/${result.total} 테스트 통과` : '아직 채점하지 않았어요.',
+            history: previousTurns
+          })
+        });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error || '답변을 받지 못했어요.');
+        if (generation !== state.tutorGeneration) return;
+        pending.classList.remove('pending');
+        pending.textContent = data.reply;
+        state.tutorHistory.push({ role: 'model', text: data.reply });
+      } catch (error) {
+        if (generation !== state.tutorGeneration) return;
+        pending.classList.remove('pending');
+        pending.textContent = error.message || 'AI 튜터와 연결하지 못했어요. 잠시 후 다시 시도해 주세요.';
+        state.tutorHistory.pop();
+      } finally {
+        if (generation === state.tutorGeneration) {
+          state.tutorBusy = false;
+          $('tutorSend').disabled = false;
+          $('tutorInput').disabled = false;
+          $('tutorInput').focus();
+        }
+      }
+    }
+    $('tutorForm').addEventListener('submit', (event) => {
+      event.preventDefault();
+      const question = $('tutorInput').value.trim();
+      if (!question) { $('tutorInput').focus(); return; }
+      $('tutorInput').value = '';
+      askTutor(question);
+    });
+    $('tutorInput').addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); $('tutorForm').requestSubmit(); }
+    });
+    document.querySelectorAll('.tutor-prompt').forEach((button) => button.addEventListener('click', () => {
+      $('tutorInput').value = button.dataset.prompt;
+      $('tutorForm').requestSubmit();
+    }));
+    $('studentNickname').value = localStorage.getItem('codewave-student-nickname') || '';
+    $('studentNickname').addEventListener('input', () => localStorage.setItem('codewave-student-nickname', $('studentNickname').value.trim().slice(0, 24)));
+    $('code').addEventListener('input', () => { syncLineNumbers(); if (state.active >= 0) { state.editor.set(problems[state.active].id, $('code').value); persistProgress(); } });
+    $('code').addEventListener('scroll', () => { $('lineNumbers').scrollTop = $('code').scrollTop; });
+    $('code').addEventListener('keydown', (event) => {
+      if (event.key === 'Tab') { event.preventDefault(); const start = event.target.selectionStart; const end = event.target.selectionEnd; event.target.setRangeText('    ', start, end, 'end'); syncLineNumbers(); }
+    });
+    $('runButton').addEventListener('click', () => judge(true));
+    $('submitButton').addEventListener('click', () => judge(false));
+    $('helpButton').addEventListener('click', () => $('helpModal').classList.add('show'));
+    $('closeHelp').addEventListener('click', () => $('helpModal').classList.remove('show'));
+    $('helpModal').addEventListener('click', (event) => { if (event.target === $('helpModal')) $('helpModal').classList.remove('show'); });
+    async function startPractice() {
+      try {
+        const response = await fetch('/api/problems');
+        if (!response.ok) throw new Error('문제 목록을 불러오지 못했어요.');
+        problems = await response.json();
+        if (!Array.isArray(problems) || problems.length === 0) throw new Error('아직 등록된 문제가 없어요.');
+        restoreProgress();
+        renderList();
+        resetTutorChat();
+        const activeProblem = problems[state.active];
+        const initialIndex = activeProblem && getUnlockedLevels().includes(activeProblem.level)
+          ? state.active
+          : (levelProblems(state.level).find(({ problem }) => !state.solved.has(problem.id)) || levelProblems(state.level)[0])?.index ?? 0;
+        selectProblem(initialIndex);
+      } catch (error) {
+        $('problemTitle').textContent = '문제를 불러오지 못했어요';
+        $('problemStatement').textContent = error.message;
+        showToast(error.message);
+      }
+    }
+    startPractice();
+  </script>
+</body>
+</html>

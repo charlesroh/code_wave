@@ -1,0 +1,120 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - link "코드웨이브 홈" [ref=e3] [cursor=pointer]:
+      - /url: "#"
+      - img [ref=e5]
+      - text: 코드웨이브
+    - button "이용 안내" [ref=e8] [cursor=pointer]
+  - region "다시 이어서 풀어봐요" [ref=e9]:
+    - generic [ref=e10]:
+      - generic [ref=e11]:
+        - img [ref=e13]
+        - text: 코드웨이브 학생 로그인
+      - paragraph [ref=e15]: PYTHON PRACTICE
+      - heading "다시 이어서 풀어봐요" [level=1] [ref=e16]
+      - paragraph [ref=e17]: 학급 코드와 닉네임, 6자리 PIN으로 로그인하세요. 실제 이름이나 이메일은 필요하지 않아요.
+      - tablist "로그인 방식" [ref=e18]:
+        - tab "로그인" [selected] [ref=e19] [cursor=pointer]
+        - tab "처음이에요" [ref=e20] [cursor=pointer]
+      - generic [ref=e21]:
+        - generic [ref=e22]:
+          - generic [ref=e23]:
+            - text: 학급 코드
+            - textbox "학급 코드" [ref=e24]:
+              - /placeholder: 선생님이 알려준 코드
+          - generic [ref=e25]:
+            - text: 닉네임
+            - textbox "닉네임" [ref=e26]:
+              - /placeholder: "예: 파이썬토끼"
+          - generic [ref=e27]:
+            - text: 6자리 PIN
+            - textbox "6자리 PIN" [ref=e28]:
+              - /placeholder: 숫자 6자리
+        - button "로그인" [ref=e29] [cursor=pointer]
+        - alert [ref=e30]
+      - paragraph [ref=e31]: PIN은 안전한 계정 정보로 처리되고, 풀이 기록은 학생 본인 계정에 저장됩니다.
+  - main [ref=e32]:
+    - generic [ref=e33]:
+      - generic [ref=e34]:
+        - paragraph [ref=e35]: PYTHON PRACTICE · SET 01
+        - heading "오늘의 파이썬 문제" [level=1] [ref=e36]
+        - paragraph [ref=e37]: 한 문제씩 차근차근, 내 코드로 정답을 찾아보세요.
+      - generic [ref=e38]: 문제 세트 01 · 10문제
+    - generic [ref=e39]:
+      - complementary "문제 목록" [ref=e40]:
+        - generic [ref=e41]:
+          - generic [ref=e42]:
+            - generic [ref=e43]: 문제 목록
+            - generic [ref=e44]: 0 / 10 완료
+          - progressbar "문제 풀이 진행률" [ref=e45]
+        - list [ref=e46]:
+          - listitem [ref=e47]:
+            - button "01 두 수의 합" [ref=e48] [cursor=pointer]:
+              - generic [ref=e49]: "01"
+              - generic [ref=e50]: 두 수의 합
+          - listitem [ref=e52]:
+            - button "02 직사각형의 넓이" [ref=e53] [cursor=pointer]:
+              - generic [ref=e54]: "02"
+              - generic [ref=e55]: 직사각형의 넓이
+          - listitem [ref=e57]:
+            - button "03 짝수와 홀수" [ref=e58] [cursor=pointer]:
+              - generic [ref=e59]: "03"
+              - generic [ref=e60]: 짝수와 홀수
+          - listitem [ref=e62]:
+            - button "04 세 수 중 가장 큰 수" [ref=e63] [cursor=pointer]:
+              - generic [ref=e64]: "04"
+              - generic [ref=e65]: 세 수 중 가장 큰 수
+          - listitem [ref=e67]:
+            - button "05 1부터 N까지의 합" [ref=e68] [cursor=pointer]:
+              - generic [ref=e69]: "05"
+              - generic [ref=e70]: 1부터 N까지의 합
+          - listitem [ref=e72]:
+            - button "06 구구단 한 단" [ref=e73] [cursor=pointer]:
+              - generic [ref=e74]: "06"
+              - generic [ref=e75]: 구구단 한 단
+          - listitem [ref=e77]:
+            - button "07 문자열 거꾸로 출력" [ref=e78] [cursor=pointer]:
+              - generic [ref=e79]: "07"
+              - generic [ref=e80]: 문자열 거꾸로 출력
+          - listitem [ref=e82]:
+            - button "08 리스트의 최댓값" [ref=e83] [cursor=pointer]:
+              - generic [ref=e84]: "08"
+              - generic [ref=e85]: 리스트의 최댓값
+          - listitem [ref=e87]:
+            - button "09 모음 세기" [ref=e88] [cursor=pointer]:
+              - generic [ref=e89]: "09"
+              - generic [ref=e90]: 모음 세기
+          - listitem [ref=e92]:
+            - button "10 평균 구하기" [ref=e93] [cursor=pointer]:
+              - generic [ref=e94]: "10"
+              - generic [ref=e95]: 평균 구하기
+      - generic [ref=e97]:
+        - article [ref=e98]:
+          - generic [ref=e99]:
+            - generic [ref=e100]: 입출력
+            - generic [ref=e101]:
+              - generic [ref=e102]: ●●○
+              - text: 쉬움
+          - heading "01. 두 수의 합" [level=2] [ref=e103]
+          - paragraph [ref=e105]: 정수 두 개가 주어집니다. 두 수의 합을 출력하는 프로그램을 작성하세요.
+          - heading "입력 예시와 출력 예시" [level=3] [ref=e106]
+          - generic [ref=e107]:
+            - generic [ref=e108]:
+              - generic [ref=e109]: 입력 예시
+              - generic [ref=e110]: 3 5
+            - generic [ref=e111]:
+              - generic [ref=e112]: 출력 예시
+              - generic [ref=e113]: "8"
+        - region "코드 입력" [ref=e114]:
+          - generic [ref=e116]:
+            - generic [ref=e117]: PY
+            - generic [ref=e118]: 코드 편집기
+          - generic [ref=e119]:
+            - generic [ref=e120]: 1 2 3
+            - textbox "Python 코드" [ref=e121]: data = input().split() a, b = map(int, data) print(a + b)
+          - generic [ref=e122]:
+            - generic [ref=e123]: 채점 엔진은 처음 채점할 때 준비됩니다.
+            - generic [ref=e124]:
+              - button "예제 실행" [ref=e125] [cursor=pointer]
+              - button "채점하기" [ref=e126] [cursor=pointer]
+  - status

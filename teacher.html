@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f7f2">
+  <title>선생님 대시보드 | 코드웨이브</title>
+  <style>
+    :root { color-scheme: light; --ink:#19251f; --muted:#718078; --line:#e1e8e2; --paper:#fff; --canvas:#f6f7f2; --green:#176b4b; --green-dark:#10563c; --soft:#edf5ed; --red:#b9413d; font-family:Inter,Pretendard,"Apple SD Gothic Neo","Noto Sans KR",sans-serif; }
+    * { box-sizing:border-box; }
+    body { margin:0; color:var(--ink); background:var(--canvas); min-width:320px; }
+    button,input,textarea { font:inherit; }
+    button { cursor:pointer; }
+    [hidden] { display:none!important; }
+    .topbar { height:68px; display:flex; align-items:center; justify-content:space-between; padding:0 clamp(18px,4vw,64px); border-bottom:1px solid var(--line); background:#ffffffeb; }
+    .brand { display:flex; align-items:center; gap:10px; color:var(--ink); text-decoration:none; font-size:19px; font-weight:850; letter-spacing:-.05em; }
+    .brand-mark { width:30px; height:30px; display:grid; place-items:center; border-radius:9px 9px 9px 3px; color:#d9f36a; background:var(--green); }
+    .brand-mark svg { width:18px; height:18px; }
+    .back-link { color:var(--green); font-size:13px; font-weight:750; text-decoration:none; }
+    main { width:min(1240px,100%); margin:auto; padding:32px clamp(14px,3vw,36px) 60px; }
+    .eyebrow { margin:0 0 8px; color:var(--green); font-size:11px; font-weight:850; letter-spacing:.12em; }
+    h1 { margin:0; font-size:clamp(25px,3vw,34px); letter-spacing:-.055em; }
+    .lead { margin:8px 0 24px; color:var(--muted); font-size:14px; line-height:1.6; }
+    .card { border:1px solid var(--line); border-radius:13px; background:var(--paper); }
+    .login-card { width:min(420px,100%); margin:10vh auto; padding:clamp(22px,5vw,34px); }
+    .login-card h1 { font-size:26px; }
+    .field { display:grid; gap:7px; margin:13px 0; color:#344239; font-size:12px; font-weight:750; }
+    .field input,.field textarea { width:100%; min-height:44px; padding:10px 12px; border:1px solid #d8e1d9; border-radius:8px; outline:0; color:var(--ink); background:white; font-size:14px; font-weight:450; }
+    .field textarea { min-height:100px; resize:vertical; line-height:1.65; }
+    .field input:focus,.field textarea:focus { border-color:var(--green); box-shadow:0 0 0 3px #176b4b20; }
+    .button { min-height:42px; padding:0 15px; border:1px solid transparent; border-radius:8px; color:white; background:var(--green); font-size:13px; font-weight:800; }
+    .button:hover { background:#21845e; }
+    .button:disabled { opacity:.6; cursor:wait; }
+    .button.secondary { border-color:#ccd9ce; color:var(--green); background:white; }
+    .button.secondary:hover { background:var(--soft); }
+    .button.danger { border-color:#e4c6c2; color:#a13b35; background:white; }
+    .button.danger:hover { background:#fff4f2; }
+    .message { min-height:20px; margin:10px 0 0; color:var(--red); font-size:12px; line-height:1.55; }
+    .topline { display:flex; justify-content:space-between; align-items:end; gap:20px; margin-bottom:21px; }
+    .top-actions { display:flex; gap:9px; flex-wrap:wrap; }
+    .tabs { display:flex; gap:4px; padding:4px; margin-bottom:17px; border-radius:9px; background:#e9eee8; width:max-content; }
+    .tab { min-height:38px; padding:0 16px; border:0; border-radius:7px; color:var(--muted); background:transparent; font-size:13px; font-weight:800; }
+    .tab[aria-selected="true"] { color:var(--green-dark); background:white; box-shadow:0 1px 3px #17251a16; }
+    .metrics { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin-bottom:16px; }
+    .metric { padding:17px 19px; }
+    .metric-label { color:var(--muted); font-size:12px; font-weight:700; }
+    .metric-value { margin-top:7px; font-size:28px; font-weight:850; letter-spacing:-.05em; }
+    .section-card { margin-top:14px; overflow:hidden; }
+    .section-head { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:16px 18px; border-bottom:1px solid var(--line); }
+    .section-head h2 { margin:0; font-size:15px; letter-spacing:-.025em; }
+    .subtle { color:var(--muted); font-size:11px; }
+    .table-wrap { overflow-x:auto; }
+    table { width:100%; border-collapse:collapse; text-align:left; white-space:nowrap; }
+    th,td { padding:11px 15px; border-bottom:1px solid #edf0ec; font-size:12px; }
+    th { color:var(--muted); background:#fafbf9; font-size:10px; letter-spacing:.035em; }
+    tr:last-child td { border-bottom:0; }
+    .status-pill { display:inline-block; padding:4px 7px; border-radius:5px; color:#176b4b; background:#e4f3e8; font-size:10px; font-weight:800; }
+    .status-pill.partial { color:#99642b; background:#fbf0d9; }
+    .empty { padding:26px; color:var(--muted); text-align:center; font-size:13px; }
+    .editor-layout { display:grid; grid-template-columns:minmax(210px,.75fr) minmax(0,2fr); gap:14px; align-items:start; }
+    .problem-picker { padding:8px; }
+    .problem-row { display:flex; align-items:center; gap:8px; width:100%; min-height:44px; padding:8px 10px; border:0; border-radius:7px; color:var(--ink); background:transparent; text-align:left; font-size:12px; font-weight:700; }
+    .problem-row:hover,.problem-row.active { color:var(--green-dark); background:var(--soft); }
+    .problem-row span { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .level-pill { padding:4px 6px; border-radius:5px; color:var(--green); background:var(--soft); font-size:9px; font-weight:800; white-space:nowrap; }
+    .editor-card { padding:19px; }
+    .editor-title-row { display:flex; justify-content:space-between; align-items:center; gap:10px; }
+    .editor-title-row h2 { margin:0; font-size:17px; }
+    .editor-actions { display:flex; gap:8px; flex-wrap:wrap; }
+    .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:0 12px; }
+    .field.full { grid-column:1/-1; }
+    .testcase { display:grid; grid-template-columns:1fr 1fr auto; gap:8px; align-items:end; padding:11px; margin:10px 0; border:1px solid var(--line); border-radius:9px; background:#fafbf9; }
+    .testcase .field { margin:0; }
+    .testcase textarea { min-height:75px; font-family:"SFMono-Regular",Consolas,monospace; font-size:12px; }
+    .remove-case { min-height:38px; padding:0 10px; border:1px solid #e4c6c2; border-radius:7px; color:#a13b35; background:white; font-size:11px; font-weight:750; }
+    .editor-footer { display:flex; justify-content:space-between; align-items:center; gap:12px; padding-top:14px; border-top:1px solid var(--line); }
+    .warning { margin:0; padding:14px 16px; border:1px solid #eadcb5; border-radius:9px; color:#6d5725; background:#fffaf0; font-size:12px; line-height:1.6; }
+    @media (max-width:760px) { .topline { align-items:start; flex-direction:column; } .editor-layout { grid-template-columns:1fr; } .problem-picker { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); } }
+    @media (max-width:520px) { .topbar { height:60px; padding-inline:14px; } main { padding-top:23px; } .metrics { gap:7px; } .metric { padding:13px 11px; } .metric-value { font-size:22px; } .metric-label { font-size:10px; } .tabs { width:100%; } .tab { flex:1; } .form-grid { grid-template-columns:1fr; } .field.full { grid-column:auto; } .testcase { grid-template-columns:1fr 1fr; } .remove-case { grid-column:1/-1; } .section-head { padding:14px; } th,td { padding:10px 12px; } }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="코드웨이브 학생 화면">
+      <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="m8 7-5 5 5 5M16 7l5 5-5 5m-2-12-4 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      코드웨이브 · 선생님
+    </a>
+    <a class="back-link" href="/">학생 화면으로</a>
+  </header>
+  <main>
+    <section class="card login-card" id="loginPanel">
+      <p class="eyebrow">TEACHER ACCESS</p>
+      <h1>선생님 대시보드</h1>
+      <p class="lead">문제 편집과 학생 결과를 보려면 선생님 비밀번호를 입력해 주세요.</p>
+      <form id="loginForm">
+        <label class="field">선생님 비밀번호<input id="teacherPassword" type="password" required autocomplete="current-password" autofocus></label>
+        <button class="button" id="loginButton" type="submit">대시보드 열기</button>
+        <p class="message" id="loginMessage" role="alert"></p>
+      </form>
+    </section>
+    <section id="dashboard" hidden>
+      <div class="topline">
+        <div><p class="eyebrow">CLASS OVERVIEW</p><h1>학습 결과 대시보드</h1><p class="lead">실시간 집계는 5초마다 새로고침됩니다.</p></div>
+        <div class="top-actions"><button class="button secondary" id="refreshButton">지금 새로고침</button><button class="button secondary" id="downloadButton">결과 CSV 다운로드</button><button class="button danger" id="logoutButton">로그아웃</button></div>
+      </div>
+      <div class="tabs" role="tablist" aria-label="선생님 도구">
+        <button class="tab" id="resultsTab" role="tab" aria-selected="true">결과 대시보드</button>
+        <button class="tab" id="problemsTab" role="tab" aria-selected="false">문제 편집</button>
+      </div>
+      <section id="resultsView">
+        <div class="metrics">
+          <article class="card metric"><div class="metric-label">전체 제출</div><div class="metric-value" id="submissionMetric">0</div></article>
+          <article class="card metric"><div class="metric-label">참여 닉네임</div><div class="metric-value" id="studentMetric">0</div></article>
+          <article class="card metric"><div class="metric-label">테스트 통과율</div><div class="metric-value" id="passMetric">0%</div></article>
+        </div>
+        <p class="warning">연습용 안내: 학생 로그인이 없어 닉네임과 점수를 본인 확인할 수 없고, 테스트케이스도 브라우저에서 볼 수 있습니다. 중요한 시험에 쓰려면 학생 인증과 별도의 안전한 실행 서버가 필요합니다.</p>
+        <section class="card section-card">
+          <div class="section-head"><h2>문제별 결과</h2><span class="subtle" id="updatedAt">데이터 불러오는 중</span></div>
+          <div class="table-wrap"><table><thead><tr><th>단계</th><th>문제</th><th>제출</th><th>통과</th><th>통과율</th></tr></thead><tbody id="problemStats"></tbody></table></div>
+        </section>
+        <section class="card section-card">
+          <div class="section-head"><h2>최근 제출 기록</h2><span class="subtle">최근 100건 표시</span></div>
+          <div class="table-wrap"><table><thead><tr><th>시간</th><th>닉네임</th><th>문제</th><th>점수</th><th>결과</th></tr></thead><tbody id="submissionRows"></tbody></table></div>
+        </section>
+      </section>
+      <section id="problemsView" hidden>
+        <p class="warning">문제를 저장하면 학생이 화면을 새로고침할 때 변경 사항이 반영됩니다. 기존 제출 기록은 문제를 수정하거나 삭제해도 유지됩니다.</p>
+        <div class="editor-layout" style="margin-top:14px">
+          <aside class="card problem-picker" id="problemPicker" aria-label="등록된 문제"></aside>
+          <section class="card editor-card">
+            <div class="editor-title-row"><h2 id="editorHeading">문제 선택</h2><div class="editor-actions"><button class="button secondary" id="newProblemButton">새 문제</button></div></div>
+            <form id="problemForm">
+              <div class="form-grid">
+                <label class="field">문제 제목<input id="problemTitleInput" required maxlength="120"></label>
+                <label class="field">분류<input id="problemTopicInput" maxlength="60" placeholder="예: 반복문"></label>
+                <label class="field">단계<select id="problemLevelInput"><option value="basic">기초</option><option value="intermediate">응용</option><option value="advanced">심화</option></select></label>
+                <label class="field full">문제 설명<textarea id="problemStatementInput" required maxlength="6000" rows="4"></textarea></label>
+                <label class="field">예제 입력<textarea id="sampleInputInput" maxlength="6000" rows="3"></textarea></label>
+                <label class="field">예제 출력<textarea id="sampleOutputInput" maxlength="6000" rows="3"></textarea></label>
+              </div>
+              <div class="section-head" style="padding:12px 0"><h2>채점 테스트케이스</h2><button class="button secondary" id="addTestButton" type="button">테스트 추가</button></div>
+              <div id="testCases"></div>
+              <div class="editor-footer"><p class="message" id="saveMessage" role="status"></p><div class="editor-actions"><button class="button danger" id="deleteProblemButton" type="button">문제 삭제</button><button class="button" type="submit">저장하기</button></div></div>
+            </form>
+          </section>
+        </div>
+      </section>
+    </section>
+  </main>
+  <script>
+    let problems = [];
+    let submissions = [];
+    let editingId = null;
+    let refreshTimer;
+    const $ = (id) => document.getElementById(id);
+    const escapeHtml = (value) => String(value ?? '').replace(/[&<>"']/g, (char) => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' })[char]);
+    const levelNames = { basic:'기초', intermediate:'응용', advanced:'심화' };
+
+    async function api(path, options = {}) {
+      const response = await fetch(path, { ...options, headers: { 'Content-Type': 'application/json', ...(options.headers || {}) } });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || '요청을 처리하지 못했어요.');
+      return data;
+    }
+    function setTab(name) {
+      const showProblems = name === 'problems';
+      $('resultsTab').setAttribute('aria-selected', String(!showProblems));
+      $('problemsTab').setAttribute('aria-selected', String(showProblems));
+      $('resultsView').hidden = showProblems;
+      $('problemsView').hidden = !showProblems;
+    }
+    function formatTime(value) {
+      const date = new Date(value);
+      return Number.isNaN(date.getTime()) ? '-' : date.toLocaleString('ko-KR', { month:'numeric', day:'numeric', hour:'2-digit', minute:'2-digit' });
+    }
+    function renderDashboard() {
+      const uniqueStudents = new Set(submissions.map((item) => item.nickname)).size;
+      const accepted = submissions.filter((item) => item.accepted).length;
+      const totalCases = submissions.reduce((sum, item) => sum + item.total, 0);
+      const passedCases = submissions.reduce((sum, item) => sum + item.passed, 0);
+      $('submissionMetric').textContent = submissions.length.toLocaleString('ko-KR');
+      $('studentMetric').textContent = uniqueStudents.toLocaleString('ko-KR');
+      $('passMetric').textContent = totalCases ? `${Math.round(passedCases / totalCases * 100)}%` : '0%';
+      $('problemStats').innerHTML = problems.map((problem) => {
+        const rows = submissions.filter((item) => item.problemId === problem.id);
+        const passed = rows.filter((item) => item.accepted).length;
+        return `<tr><td>${levelNames[problem.level] || '기초'}</td><td>${escapeHtml(problem.title)}</td><td>${rows.length}</td><td>${passed}</td><td>${rows.length ? Math.round(passed / rows.length * 100) : 0}%</td></tr>`;
+      }).join('') || '<tr><td class="empty" colspan="5">등록된 문제가 없습니다.</td></tr>';
+      const recent = [...submissions].reverse().slice(0, 100);
+      $('submissionRows').innerHTML = recent.map((item) => `<tr><td>${formatTime(item.createdAt)}</td><td>${escapeHtml(item.nickname)}</td><td>${escapeHtml(item.problemTitle)}</td><td>${item.passed} / ${item.total}</td><td><span class="status-pill ${item.accepted ? '' : 'partial'}">${item.accepted ? '통과' : '재도전'}</span></td></tr>`).join('') || '<tr><td class="empty" colspan="5">아직 제출 기록이 없습니다.</td></tr>';
+      $('updatedAt').textContent = `마지막 갱신 ${new Date().toLocaleTimeString('ko-KR', { hour:'2-digit', minute:'2-digit', second:'2-digit' })}`;
+      renderProblemPicker();
+    }
+    function renderProblemPicker() {
+      $('problemPicker').innerHTML = problems.map((problem, index) => `<button type="button" class="problem-row ${problem.id === editingId ? 'active' : ''}" data-id="${escapeHtml(problem.id)}"><strong>${String(index + 1).padStart(2, '0')}</strong><span>${escapeHtml(problem.title)}</span><small class="level-pill">${levelNames[problem.level] || '기초'}</small></button>`).join('');
+      $('problemPicker').querySelectorAll('[data-id]').forEach((button) => button.addEventListener('click', () => editProblem(button.dataset.id)));
+    }
+    function addTestCase(input = '', output = '') {
+      const row = document.createElement('div');
+      row.className = 'testcase';
+      row.innerHTML = `<label class="field">입력<textarea class="case-input" rows="3" maxlength="6000"></textarea></label><label class="field">기대 출력<textarea class="case-output" rows="3" maxlength="6000"></textarea></label><button class="remove-case" type="button">삭제</button>`;
+      row.querySelector('.case-input').value = input;
+      row.querySelector('.case-output').value = output;
+      row.querySelector('.remove-case').addEventListener('click', () => row.remove());
+      $('testCases').append(row);
+    }
+    function editProblem(id) {
+      const problem = problems.find((item) => item.id === id);
+      if (!problem) return;
+      editingId = id;
+      $('editorHeading').textContent = '문제 수정';
+      $('problemTitleInput').value = problem.title;
+      $('problemTopicInput').value = problem.topic;
+      $('problemLevelInput').value = problem.level || 'basic';
+      $('problemStatementInput').value = problem.statement.replace(/<\/?code>/g, '`');
+      $('sampleInputInput').value = problem.input;
+      $('sampleOutputInput').value = problem.output;
+      $('testCases').replaceChildren();
+      problem.tests.forEach(([input, output]) => addTestCase(input, output));
+      $('deleteProblemButton').hidden = false;
+      $('saveMessage').textContent = '';
+      renderProblemPicker();
+    }
+    function newProblem() {
+      editingId = null;
+      $('editorHeading').textContent = '새 문제 만들기';
+      $('problemForm').reset();
+      $('problemLevelInput').value = 'basic';
+      $('testCases').replaceChildren();
+      addTestCase();
+      $('deleteProblemButton').hidden = true;
+      $('saveMessage').textContent = '';
+      renderProblemPicker();
+    }
+    async function refreshData() {
+      const data = await api('/api/teacher/data');
+      problems = data.problems;
+      submissions = data.submissions;
+      renderDashboard();
+      if (editingId && !problems.some((item) => item.id === editingId)) newProblem();
+    }
+    function openDashboard() {
+      $('loginPanel').hidden = true;
+      $('dashboard').hidden = false;
+      refreshData().catch((error) => alert(error.message));
+      clearInterval(refreshTimer);
+      refreshTimer = setInterval(() => refreshData().catch(() => {}), 5000);
+    }
+    function csvCell(value) {
+      let text = String(value ?? '');
+      if (/^[=+\-@]/.test(text)) text = `'${text}`;
+      return `"${text.replace(/"/g, '""')}"`;
+    }
+    function downloadCsv() {
+      const header = ['제출 시간', '닉네임', '문제', '통과 테스트', '전체 테스트', '결과'];
+      const rows = submissions.map((item) => [item.createdAt, item.nickname, item.problemTitle, item.passed, item.total, item.accepted ? '통과' : '재도전']);
+      const csv = '\ufeff' + [header, ...rows].map((row) => row.map(csvCell).join(',')).join('\r\n');
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
+      link.download = `codewave-results-${new Date().toISOString().slice(0, 10)}.csv`;
+      link.click();
+      setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+    }
+
+    $('loginForm').addEventListener('submit', async (event) => {
+      event.preventDefault();
+      $('loginButton').disabled = true;
+      $('loginMessage').textContent = '';
+      try {
+        await api('/api/teacher/login', { method:'POST', body:JSON.stringify({ password:$('teacherPassword').value }) });
+        $('teacherPassword').value = '';
+        openDashboard();
+      } catch (error) { $('loginMessage').textContent = error.message; }
+      finally { $('loginButton').disabled = false; }
+    });
+    $('logoutButton').addEventListener('click', async () => {
+      await api('/api/teacher/logout', { method:'POST', body:'{}' });
+      clearInterval(refreshTimer);
+      $('dashboard').hidden = true;
+      $('loginPanel').hidden = false;
+    });
+    $('refreshButton').addEventListener('click', () => refreshData().catch((error) => alert(error.message)));
+    $('downloadButton').addEventListener('click', downloadCsv);
+    $('resultsTab').addEventListener('click', () => setTab('results'));
+    $('problemsTab').addEventListener('click', () => setTab('problems'));
+    $('newProblemButton').addEventListener('click', newProblem);
+    $('addTestButton').addEventListener('click', () => addTestCase());
+    $('problemForm').addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const tests = [...$('testCases').querySelectorAll('.testcase')].map((row) => [row.querySelector('.case-input').value, row.querySelector('.case-output').value]);
+      const problem = {
+        id: editingId || `p-${crypto.randomUUID()}`,
+        level: $('problemLevelInput').value,
+        title: $('problemTitleInput').value.trim(),
+        topic: $('problemTopicInput').value.trim() || '기초',
+        statement: $('problemStatementInput').value.trim().replace(/`([^`]+)`/g, '<code>$1</code>'),
+        input: $('sampleInputInput').value,
+        output: $('sampleOutputInput').value,
+        tests
+      };
+      const next = editingId ? problems.map((item) => item.id === editingId ? problem : item) : [...problems, problem];
+      try {
+        await api('/api/teacher/problems', { method:'PUT', body:JSON.stringify(next) });
+        problems = next;
+        editingId = problem.id;
+        $('saveMessage').textContent = '저장했어요. 학생 화면을 새로고침하면 반영됩니다.';
+        renderDashboard();
+        editProblem(problem.id);
+      } catch (error) { $('saveMessage').textContent = error.message; }
+    });
+    $('deleteProblemButton').addEventListener('click', async () => {
+      if (!editingId || !confirm('이 문제를 삭제할까요?')) return;
+      const next = problems.filter((item) => item.id !== editingId);
+      try {
+        await api('/api/teacher/problems', { method:'PUT', body:JSON.stringify(next) });
+        problems = next;
+        newProblem();
+        renderDashboard();
+      } catch (error) { $('saveMessage').textContent = error.message; }
+    });
+    (async () => {
+      try { const session = await api('/api/teacher/session'); if (session.authenticated) openDashboard(); }
+      catch { $('loginMessage').textContent = '대시보드를 불러오지 못했어요.'; }
+    })();
+  </script>
+</body>
+</html>
