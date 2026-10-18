@@ -588,9 +588,15 @@ _capture.getvalue()
     $('helpModal').addEventListener('click', (event) => { if (event.target === $('helpModal')) $('helpModal').classList.remove('show'); });
     async function startPractice() {
       try {
-        const response = await fetch('/api/problems');
-        if (!response.ok) throw new Error('문제 목록을 불러오지 못했어요.');
-        problems = await response.json();
+        try {
+          const response = await fetch('/api/problems');
+          if (!response.ok) throw new Error('문제 API를 사용할 수 없어요.');
+          problems = await response.json();
+        } catch {
+          const fallback = await fetch('/data/problems.json');
+          if (!fallback.ok) throw new Error('문제 목록을 불러오지 못했어요. 배포 폴더에 data/problems.json 파일이 있는지 확인해 주세요.');
+          problems = await fallback.json();
+        }
         if (!Array.isArray(problems) || problems.length === 0) throw new Error('아직 등록된 문제가 없어요.');
         restoreProgress();
         renderList();

@@ -410,7 +410,7 @@ const server = http.createServer((request, response) => {
   }
 
   const requestedPath = url.pathname === '/' ? '/index.html' : url.pathname === '/teacher' ? '/teacher.html' : url.pathname;
-  if (!['/index.html', '/teacher.html', '/__preview-bridge.js'].includes(requestedPath)) {
+  if (!['/index.html', '/teacher.html', '/__preview-bridge.js', '/data/problems.json'].includes(requestedPath)) {
     response.writeHead(404);
     response.end('Not found');
     return;
@@ -422,7 +422,8 @@ const server = http.createServer((request, response) => {
       response.end('Not found');
       return;
     }
-    response.writeHead(200, { 'Content-Type': requestedPath.endsWith('.js') ? 'text/javascript; charset=utf-8' : 'text/html; charset=utf-8' });
+    const contentType = requestedPath.endsWith('.js') ? 'text/javascript; charset=utf-8' : requestedPath.endsWith('.json') ? 'application/json; charset=utf-8' : 'text/html; charset=utf-8';
+    response.writeHead(200, { 'Content-Type': contentType });
     response.end(content);
   });
 });
