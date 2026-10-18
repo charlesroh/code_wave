@@ -73,10 +73,14 @@
     .testcase .field { margin:0; }
     .testcase textarea { min-height:75px; font-family:"SFMono-Regular",Consolas,monospace; font-size:12px; }
     .remove-case { min-height:38px; padding:0 10px; border:1px solid #e4c6c2; border-radius:7px; color:#a13b35; background:white; font-size:11px; font-weight:750; }
+    .generate-row { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px; margin:3px 0 8px; border:1px solid #d9e7d9; border-radius:9px; background:#f5faf4; }
+    .generate-row p { margin:0; color:var(--muted); font-size:11px; line-height:1.5; }
+    .generate-button { flex:0 0 auto; }
     .editor-footer { display:flex; justify-content:space-between; align-items:center; gap:12px; padding-top:14px; border-top:1px solid var(--line); }
     .warning { margin:0; padding:14px 16px; border:1px solid #eadcb5; border-radius:9px; color:#6d5725; background:#fffaf0; font-size:12px; line-height:1.6; }
     @media (max-width:760px) { .topline { align-items:start; flex-direction:column; } .editor-layout { grid-template-columns:1fr; } .problem-picker { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); } }
     @media (max-width:520px) { .topbar { height:60px; padding-inline:14px; } main { padding-top:23px; } .metrics { gap:7px; } .metric { padding:13px 11px; } .metric-value { font-size:22px; } .metric-label { font-size:10px; } .tabs { width:100%; } .tab { flex:1; } .form-grid { grid-template-columns:1fr; } .field.full { grid-column:auto; } .testcase { grid-template-columns:1fr 1fr; } .remove-case { grid-column:1/-1; } .section-head { padding:14px; } th,td { padding:10px 12px; } }
+    @media (max-width:520px) { .generate-row { align-items:flex-start; flex-direction:column; } }
   </style>
 </head>
 <body>
@@ -138,6 +142,7 @@
                 <label class="field">예제 입력<textarea id="sampleInputInput" maxlength="6000" rows="3"></textarea></label>
                 <label class="field">예제 출력<textarea id="sampleOutputInput" maxlength="6000" rows="3"></textarea></label>
               </div>
+              <div class="generate-row"><p>문제 설명과 난이도를 바탕으로 AI가 예제와 테스트를 만듭니다. 생성 후 내용을 확인해 주세요.</p><button class="button secondary generate-button" id="generateCasesButton" type="button">AI로 예제·테스트 생성</button></div>
               <div class="section-head" style="padding:12px 0"><h2>채점 테스트케이스</h2><button class="button secondary" id="addTestButton" type="button">테스트 추가</button></div>
               <div id="testCases"></div>
               <div class="editor-footer"><p class="message" id="saveMessage" role="status"></p><div class="editor-actions"><button class="button danger" id="deleteProblemButton" type="button">문제 삭제</button><button class="button" type="submit">저장하기</button></div></div>
@@ -285,6 +290,32 @@
     $('problemsTab').addEventListener('click', () => setTab('problems'));
     $('newProblemButton').addEventListener('click', newProblem);
     $('addTestButton').addEventListener('click', () => addTestCase());
+    $('generateCasesButton').addEventListener('click', async () => {
+      const title = $('problemTitleInput').value.trim();
+      const statement = $('problemStatementInput').value.trim();
+      if (!title || !statement) {
+        $('saveMessage').textContent = '문제 제목과 설명을 먼저 적어 주세요.';
+        return;
+      }
+      const hasExisting = $('sampleInputInput').value.trim() || $('sampleOutputInput').value.trim() || [...$('testCases').querySelectorAll('.testcase')].some((row) => row.querySelector('.case-input').value.trim() || row.querySelector('.case-output').value.trim());
+      if (hasExisting && !confirm('기존 예제와 테스트케이스를 AI 생성 결과로 바꿀까요?')) return;
+      const button = $('generateCasesButton');
+      button.disabled = true;
+      button.textContent = '만드는 중…';
+      $('saveMessage').textContent = '문제 설명을 바탕으로 테스트를 만들고 있어요.';
+      try {
+        const generated = await api('/api/teacher/generate-cases', {
+          method: 'POST',
+          body: JSON.stringify({ title, topic: $('problemTopicInput').value.trim(), level: $('problemLevelInput').value, statement })
+        });
+        $('sampleInputInput').value = generated.input;
+        $('sampleOutputInput').value = generated.output;
+        $('testCases').replaceChildren();
+        generated.tests.forEach(([input, output]) => addTestCase(input, output));
+        $('saveMessage').textContent = `예제와 테스트 ${generated.tests.length}개를 만들었어요. 검토한 뒤 저장해 주세요.`;
+      } catch (error) { $('saveMessage').textContent = error.message; }
+      finally { button.disabled = false; button.textContent = 'AI로 예제·테스트 생성'; }
+    });
     $('problemForm').addEventListener('submit', async (event) => {
       event.preventDefault();
       const tests = [...$('testCases').querySelectorAll('.testcase')].map((row) => [row.querySelector('.case-input').value, row.querySelector('.case-output').value]);
