@@ -44,8 +44,8 @@ function teacherOnly(request, response) {
   return false;
 }
 
-function validProblems(value) {
-  return Array.isArray(value) && value.length > 0 && value.length <= 100 && value.every((problem) =>
+function validProblem(problem) {
+  return Boolean(
     problem && typeof problem.id === 'string' && /^[\w-]{1,80}$/.test(problem.id) &&
     problemLevels.has(problem.level) &&
     typeof problem.title === 'string' && problem.title.trim().length > 0 && problem.title.length <= 120 &&
@@ -55,7 +55,7 @@ function validProblems(value) {
     typeof problem.output === 'string' && problem.output.length <= 6000 &&
     Array.isArray(problem.tests) && problem.tests.length > 0 && problem.tests.length <= 100 &&
     problem.tests.every((test) => Array.isArray(test) && test.length === 2 && typeof test[0] === 'string' && test[0].length <= 6000 && typeof test[1] === 'string' && test[1].length <= 6000)
-  ) && new Set(value.map((problem) => problem.id)).size === value.length;
+  );
 }
 
 async function api(request, response, url) {
@@ -159,19 +159,82 @@ async function api(request, response, url) {
     sendJson(response, 200, { problems: readStore(problemsFile), submissions: readStore(submissionsFile) });
     return;
   }
-  if (request.method === 'PUT' && url.pathname === '/api/teacher/problems') {
+  if (request.method === 'GET' && url.pathname === '/api/teacher/problems') {
+    if (!teacherOnly(request, response)) return;
+    sendJson(response, 200, readStore(problemsFile));
+    return;
+  }
+  const problemRoute = url.pathname.match(/^\/api\/teacher\/problems\/([\w-]{1,80})$/);
+  if (problemRoute && request.method === 'GET') {
+    if (!teacherOnly(request, response)) return;
+    const problem = readStore(problemsFile).find((item) => item.id === problemRoute[1]);
+    if (!problem) {
+      sendJson(response, 404, { error: '문제를 찾을 수 없어요.' });
+      return;
+    }
+    sendJson(response, 200, problem);
+    return;
+  }
+  if (request.method === 'POST' && url.pathname === '/api/teacher/problems') {
     if (!teacherOnly(request, response)) return;
     try {
-      const value = await readJson(request, 1_000_000);
-      if (!validProblems(value)) {
-        sendJson(response, 400, { error: '문제 또는 테스트케이스 내용을 확인해 주세요.' });
+      const body = await readJson(request, 20_000);
+      const value = { ...body, id: body.id || `p-${crypto.randomUUID()}` };
+      const problems = readStore(problemsFile);
+      if (!validProblem(value)) {
+        sendJson(response, 400, { error: '문제와 테스트케이스 내용을 확인해 주세요.' });
         return;
       }
-      writeStore(problemsFile, value);
-      sendJson(response, 200, { saved: true, count: value.length });
+      if (problems.length >= 100) {
+        sendJson(response, 409, { error: '문제는 최대 100개까지 등록할 수 있어요.' });
+        return;
+      }
+      if (problems.some((problem) => problem.id === value.id)) {
+        sendJson(response, 409, { error: '같은 문제 번호가 이미 있어요. 다시 저장해 주세요.' });
+        return;
+      }
+      problems.push(value);
+      writeStore(problemsFile, problems);
+      sendJson(response, 201, { saved: true, problem: value });
     } catch (error) {
-      sendJson(response, 400, { error: error.message || '문제를 저장하지 못했어요.' });
+      sendJson(response, 400, { error: error.message || '문제를 등록하지 못했어요.' });
     }
+    return;
+  }
+  if (problemRoute && request.method === 'PUT') {
+    if (!teacherOnly(request, response)) return;
+    try {
+      const body = await readJson(request, 20_000);
+      const problems = readStore(problemsFile);
+      const index = problems.findIndex((item) => item.id === problemRoute[1]);
+      if (index < 0) {
+        sendJson(response, 404, { error: '수정할 문제를 찾을 수 없어요.' });
+        return;
+      }
+      const value = { ...body, id: problemRoute[1] };
+      if (!validProblem(value)) {
+        sendJson(response, 400, { error: '문제와 테스트케이스 내용을 확인해 주세요.' });
+        return;
+      }
+      problems[index] = value;
+      writeStore(problemsFile, problems);
+      sendJson(response, 200, { saved: true, problem: value });
+    } catch (error) {
+      sendJson(response, 400, { error: error.message || '문제를 수정하지 못했어요.' });
+    }
+    return;
+  }
+  if (problemRoute && request.method === 'DELETE') {
+    if (!teacherOnly(request, response)) return;
+    const problems = readStore(problemsFile);
+    const index = problems.findIndex((item) => item.id === problemRoute[1]);
+    if (index < 0) {
+      sendJson(response, 404, { error: '삭제할 문제를 찾을 수 없어요.' });
+      return;
+    }
+    const [deleted] = problems.splice(index, 1);
+    writeStore(problemsFile, problems);
+    sendJson(response, 200, { deleted: true, id: deleted.id, count: problems.length });
     return;
   }
   if (request.method === 'POST' && url.pathname === '/api/teacher/generate-cases') {

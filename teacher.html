@@ -318,9 +318,11 @@
     });
     $('problemForm').addEventListener('submit', async (event) => {
       event.preventDefault();
+      const saveButton = event.submitter || $('problemForm').querySelector('button[type="submit"]');
+      const currentId = editingId;
       const tests = [...$('testCases').querySelectorAll('.testcase')].map((row) => [row.querySelector('.case-input').value, row.querySelector('.case-output').value]);
       const problem = {
-        id: editingId || `p-${crypto.randomUUID()}`,
+        ...(currentId ? { id:currentId } : {}),
         level: $('problemLevelInput').value,
         title: $('problemTitleInput').value.trim(),
         topic: $('problemTopicInput').value.trim() || '기초',
@@ -329,22 +331,27 @@
         output: $('sampleOutputInput').value,
         tests
       };
-      const next = editingId ? problems.map((item) => item.id === editingId ? problem : item) : [...problems, problem];
+      saveButton.disabled = true;
       try {
-        await api('/api/teacher/problems', { method:'PUT', body:JSON.stringify(next) });
-        problems = next;
-        editingId = problem.id;
+        const saved = await api(currentId ? `/api/teacher/problems/${encodeURIComponent(currentId)}` : '/api/teacher/problems', {
+          method: currentId ? 'PUT' : 'POST',
+          body: JSON.stringify(problem)
+        });
+        const stored = saved.problem;
+        problems = currentId ? problems.map((item) => item.id === currentId ? stored : item) : [...problems, stored];
+        editingId = stored.id;
         $('saveMessage').textContent = '저장했어요. 학생 화면을 새로고침하면 반영됩니다.';
         renderDashboard();
-        editProblem(problem.id);
+        editProblem(stored.id);
       } catch (error) { $('saveMessage').textContent = error.message; }
+      finally { saveButton.disabled = false; }
     });
     $('deleteProblemButton').addEventListener('click', async () => {
       if (!editingId || !confirm('이 문제를 삭제할까요?')) return;
-      const next = problems.filter((item) => item.id !== editingId);
+      const deletedId = editingId;
       try {
-        await api('/api/teacher/problems', { method:'PUT', body:JSON.stringify(next) });
-        problems = next;
+        await api(`/api/teacher/problems/${encodeURIComponent(deletedId)}`, { method:'DELETE' });
+        problems = problems.filter((item) => item.id !== deletedId);
         newProblem();
         renderDashboard();
       } catch (error) { $('saveMessage').textContent = error.message; }

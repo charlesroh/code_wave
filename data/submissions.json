@@ -8,5 +8,15 @@
     "total": 3,
     "accepted": true,
     "createdAt": "2026-10-18T06:30:44.742Z"
+  },
+  {
+    "id": "2476f9e4-2077-4dde-b40e-35104a24277a",
+    "nickname": "산토끼",
+    "problemId": "p05",
+    "problemTitle": "1부터 N까지의 합",
+    "passed": 3,
+    "total": 3,
+    "accepted": true,
+    "createdAt": "2026-10-18T06:47:39.310Z"
   }
 ]

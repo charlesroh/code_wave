@@ -7,7 +7,20 @@
     "statement": "정수 두 개가 주어집니다. 두 수의 합을 출력하는 프로그램을 작성하세요.",
     "input": "3 5",
     "output": "8",
-    "tests": [["3 5\n", "8"], ["-4 9\n", "5"], ["100 250\n", "350"]]
+    "tests": [
+      [
+        "3 5\n",
+        "8"
+      ],
+      [
+        "-4 9\n",
+        "5"
+      ],
+      [
+        "100 250\n",
+        "350"
+      ]
+    ]
   },
   {
     "id": "p02",
@@ -17,7 +30,20 @@
     "statement": "직사각형의 가로와 세로 길이가 주어집니다. 직사각형의 넓이를 출력하세요.",
     "input": "4 7",
     "output": "28",
-    "tests": [["4 7\n", "28"], ["3 3\n", "9"], ["12 5\n", "60"]]
+    "tests": [
+      [
+        "4 7\n",
+        "28"
+      ],
+      [
+        "3 3\n",
+        "9"
+      ],
+      [
+        "12 5\n",
+        "60"
+      ]
+    ]
   },
   {
     "id": "p03",
@@ -27,7 +53,20 @@
     "statement": "정수 N이 주어집니다. N이 짝수라면 <code>even</code>, 홀수라면 <code>odd</code>를 출력하세요.",
     "input": "7",
     "output": "odd",
-    "tests": [["7\n", "odd"], ["12\n", "even"], ["0\n", "even"]]
+    "tests": [
+      [
+        "7\n",
+        "odd"
+      ],
+      [
+        "12\n",
+        "even"
+      ],
+      [
+        "0\n",
+        "even"
+      ]
+    ]
   },
   {
     "id": "p04",
@@ -37,7 +76,20 @@
     "statement": "서로 다른 세 정수 A, B, C가 주어집니다. 가장 큰 수를 출력하세요.",
     "input": "8 2 13",
     "output": "13",
-    "tests": [["8 2 13\n", "13"], ["-5 -2 -9\n", "-2"], ["100 99 1\n", "100"]]
+    "tests": [
+      [
+        "8 2 13\n",
+        "13"
+      ],
+      [
+        "-5 -2 -9\n",
+        "-2"
+      ],
+      [
+        "100 99 1\n",
+        "100"
+      ]
+    ]
   },
   {
     "id": "p05",
@@ -47,7 +99,20 @@
     "statement": "자연수 N이 주어집니다. 1부터 N까지 모든 자연수의 합을 출력하세요.",
     "input": "5",
     "output": "15",
-    "tests": [["5\n", "15"], ["1\n", "1"], ["100\n", "5050"]]
+    "tests": [
+      [
+        "5\n",
+        "15"
+      ],
+      [
+        "1\n",
+        "1"
+      ],
+      [
+        "100\n",
+        "5050"
+      ]
+    ]
   },
   {
     "id": "p06",
@@ -57,7 +122,16 @@
     "statement": "자연수 N이 주어집니다. N단을 1부터 9까지 아래 예시처럼 출력하세요. 각 줄은 <code>N * i = 결과</code> 형식입니다.",
     "input": "3",
     "output": "3 * 1 = 3\n3 * 2 = 6\n3 * 3 = 9\n3 * 4 = 12\n3 * 5 = 15\n3 * 6 = 18\n3 * 7 = 21\n3 * 8 = 24\n3 * 9 = 27",
-    "tests": [["3\n", "3 * 1 = 3\n3 * 2 = 6\n3 * 3 = 9\n3 * 4 = 12\n3 * 5 = 15\n3 * 6 = 18\n3 * 7 = 21\n3 * 8 = 24\n3 * 9 = 27"], ["5\n", "5 * 1 = 5\n5 * 2 = 10\n5 * 3 = 15\n5 * 4 = 20\n5 * 5 = 25\n5 * 6 = 30\n5 * 7 = 35\n5 * 8 = 40\n5 * 9 = 45"]]
+    "tests": [
+      [
+        "3\n",
+        "3 * 1 = 3\n3 * 2 = 6\n3 * 3 = 9\n3 * 4 = 12\n3 * 5 = 15\n3 * 6 = 18\n3 * 7 = 21\n3 * 8 = 24\n3 * 9 = 27"
+      ],
+      [
+        "5\n",
+        "5 * 1 = 5\n5 * 2 = 10\n5 * 3 = 15\n5 * 4 = 20\n5 * 5 = 25\n5 * 6 = 30\n5 * 7 = 35\n5 * 8 = 40\n5 * 9 = 45"
+      ]
+    ]
   },
   {
     "id": "p07",
@@ -67,7 +141,20 @@
     "statement": "문자열 하나가 주어집니다. 문자열을 거꾸로 뒤집어 출력하세요.",
     "input": "python",
     "output": "nohtyp",
-    "tests": [["python\n", "nohtyp"], ["level\n", "level"], ["hello world\n", "dlrow olleh"]]
+    "tests": [
+      [
+        "python\n",
+        "nohtyp"
+      ],
+      [
+        "level\n",
+        "level"
+      ],
+      [
+        "hello world\n",
+        "dlrow olleh"
+      ]
+    ]
   },
   {
     "id": "p08",
@@ -77,7 +164,20 @@
     "statement": "첫째 줄에 수의 개수 N, 둘째 줄에 N개의 정수가 주어집니다. 이 중 가장 큰 수를 출력하세요.",
     "input": "5\n3 8 1 6 2",
     "output": "8",
-    "tests": [["5\n3 8 1 6 2\n", "8"], ["4\n-8 -2 -11 -5\n", "-2"], ["1\n42\n", "42"]]
+    "tests": [
+      [
+        "5\n3 8 1 6 2\n",
+        "8"
+      ],
+      [
+        "4\n-8 -2 -11 -5\n",
+        "-2"
+      ],
+      [
+        "1\n42\n",
+        "42"
+      ]
+    ]
   },
   {
     "id": "p09",
@@ -87,7 +187,20 @@
     "statement": "영어 소문자로 된 단어가 주어집니다. 단어에 들어 있는 모음(a, e, i, o, u)의 개수를 출력하세요.",
     "input": "education",
     "output": "5",
-    "tests": [["education\n", "5"], ["sky\n", "0"], ["banana\n", "3"]]
+    "tests": [
+      [
+        "education\n",
+        "5"
+      ],
+      [
+        "sky\n",
+        "0"
+      ],
+      [
+        "banana\n",
+        "3"
+      ]
+    ]
   },
   {
     "id": "p10",
@@ -97,106 +210,514 @@
     "statement": "첫째 줄에 점수의 개수 N, 둘째 줄에 N개의 점수가 주어집니다. 점수의 평균을 출력하세요. 소수점 아래 숫자도 그대로 출력합니다.",
     "input": "4\n80 90 70 100",
     "output": "85.0",
-    "tests": [["4\n80 90 70 100\n", "85.0"], ["3\n1 2 3\n", "2.0"], ["1\n75\n", "75.0"]]
+    "tests": [
+      [
+        "4\n80 90 70 100\n",
+        "85.0"
+      ],
+      [
+        "3\n1 2 3\n",
+        "2.0"
+      ],
+      [
+        "1\n75\n",
+        "75.0"
+      ]
+    ]
   },
   {
-    "id": "p11", "level": "intermediate", "title": "세 수의 합", "topic": "반복·연산",
-    "statement": "정수 세 개가 주어집니다. 세 수의 합을 출력하세요.", "input": "10 20 30", "output": "60",
-    "tests": [["10 20 30\n", "60"], ["-2 5 1\n", "4"], ["100 0 7\n", "107"]]
+    "id": "p11",
+    "level": "intermediate",
+    "title": "세 수의 합",
+    "topic": "반복·연산",
+    "statement": "정수 세 개가 주어집니다. 세 수의 합을 출력하세요.",
+    "input": "10 20 30",
+    "output": "60",
+    "tests": [
+      [
+        "10 20 30\n",
+        "60"
+      ],
+      [
+        "-2 5 1\n",
+        "4"
+      ],
+      [
+        "100 0 7\n",
+        "107"
+      ]
+    ]
   },
   {
-    "id": "p12", "level": "intermediate", "title": "각 자릿수의 합", "topic": "반복문",
-    "statement": "자연수 N이 주어집니다. N을 이루는 각 숫자의 합을 출력하세요.", "input": "1234", "output": "10",
-    "tests": [["1234\n", "10"], ["7\n", "7"], ["909\n", "18"]]
+    "id": "p12",
+    "level": "intermediate",
+    "title": "각 자릿수의 합",
+    "topic": "반복문",
+    "statement": "자연수 N이 주어집니다. N을 이루는 각 숫자의 합을 출력하세요.",
+    "input": "1234",
+    "output": "10",
+    "tests": [
+      [
+        "1234\n",
+        "10"
+      ],
+      [
+        "7\n",
+        "7"
+      ],
+      [
+        "909\n",
+        "18"
+      ]
+    ]
   },
   {
-    "id": "p13", "level": "intermediate", "title": "팩토리얼", "topic": "반복문",
-    "statement": "0 이상의 정수 N이 주어집니다. N 팩토리얼(N!)을 출력하세요. 0!은 1입니다.", "input": "5", "output": "120",
-    "tests": [["5\n", "120"], ["0\n", "1"], ["3\n", "6"]]
+    "id": "p13",
+    "level": "intermediate",
+    "title": "팩토리얼",
+    "topic": "반복문",
+    "statement": "0 이상의 정수 N이 주어집니다. N 팩토리얼(N!)을 출력하세요. 0!은 1입니다.",
+    "input": "5",
+    "output": "120",
+    "tests": [
+      [
+        "5\n",
+        "120"
+      ],
+      [
+        "0\n",
+        "1"
+      ],
+      [
+        "3\n",
+        "6"
+      ]
+    ]
   },
   {
-    "id": "p14", "level": "intermediate", "title": "1부터 N까지 짝수의 합", "topic": "반복문·조건문",
-    "statement": "자연수 N이 주어집니다. 1부터 N까지 짝수만 더한 값을 출력하세요.", "input": "10", "output": "30",
-    "tests": [["10\n", "30"], ["1\n", "0"], ["20\n", "110"]]
+    "id": "p14",
+    "level": "intermediate",
+    "title": "1부터 N까지 짝수의 합",
+    "topic": "반복문·조건문",
+    "statement": "자연수 N이 주어집니다. 1부터 N까지 짝수만 더한 값을 출력하세요.",
+    "input": "10",
+    "output": "30",
+    "tests": [
+      [
+        "10\n",
+        "30"
+      ],
+      [
+        "1\n",
+        "0"
+      ],
+      [
+        "20\n",
+        "110"
+      ]
+    ]
   },
   {
-    "id": "p15", "level": "intermediate", "title": "단어 길이", "topic": "문자열",
-    "statement": "영어 단어 하나가 주어집니다. 단어의 글자 수를 출력하세요.", "input": "coding", "output": "6",
-    "tests": [["coding\n", "6"], ["a\n", "1"], ["notebook\n", "8"]]
+    "id": "p15",
+    "level": "intermediate",
+    "title": "단어 길이",
+    "topic": "문자열",
+    "statement": "영어 단어 하나가 주어집니다. 단어의 글자 수를 출력하세요.",
+    "input": "coding",
+    "output": "6",
+    "tests": [
+      [
+        "coding\n",
+        "6"
+      ],
+      [
+        "a\n",
+        "1"
+      ],
+      [
+        "notebook\n",
+        "8"
+      ]
+    ]
   },
   {
-    "id": "p16", "level": "intermediate", "title": "문장 속 단어 수", "topic": "문자열·리스트",
-    "statement": "공백으로 구분된 영어 단어들이 한 줄에 주어집니다. 단어가 몇 개인지 출력하세요.", "input": "I like Python", "output": "3",
-    "tests": [["I like Python\n", "3"], ["one\n", "1"], ["we solve problems together\n", "4"]]
+    "id": "p16",
+    "level": "intermediate",
+    "title": "문장 속 단어 수",
+    "topic": "문자열·리스트",
+    "statement": "공백으로 구분된 영어 단어들이 한 줄에 주어집니다. 단어가 몇 개인지 출력하세요.",
+    "input": "I like Python",
+    "output": "3",
+    "tests": [
+      [
+        "I like Python\n",
+        "3"
+      ],
+      [
+        "one\n",
+        "1"
+      ],
+      [
+        "we solve problems together\n",
+        "4"
+      ]
+    ]
   },
   {
-    "id": "p17", "level": "intermediate", "title": "숫자 오름차순 정렬", "topic": "리스트·정렬",
-    "statement": "첫째 줄에 수의 개수 N, 둘째 줄에 N개의 정수가 주어집니다. 작은 수부터 정렬해 한 줄에 출력하세요. 수 사이는 공백 하나로 구분합니다.", "input": "5\n4 1 3 2 5", "output": "1 2 3 4 5",
-    "tests": [["5\n4 1 3 2 5\n", "1 2 3 4 5"], ["4\n9 9 1 2\n", "1 2 9 9"], ["3\n-1 0 -5\n", "-5 -1 0"]]
+    "id": "p17",
+    "level": "intermediate",
+    "title": "숫자 오름차순 정렬",
+    "topic": "리스트·정렬",
+    "statement": "첫째 줄에 수의 개수 N, 둘째 줄에 N개의 정수가 주어집니다. 작은 수부터 정렬해 한 줄에 출력하세요. 수 사이는 공백 하나로 구분합니다.",
+    "input": "5\n4 1 3 2 5",
+    "output": "1 2 3 4 5",
+    "tests": [
+      [
+        "5\n4 1 3 2 5\n",
+        "1 2 3 4 5"
+      ],
+      [
+        "4\n9 9 1 2\n",
+        "1 2 9 9"
+      ],
+      [
+        "3\n-1 0 -5\n",
+        "-5 -1 0"
+      ]
+    ]
   },
   {
-    "id": "p18", "level": "intermediate", "title": "두 수 사이의 합", "topic": "반복문·연산",
-    "statement": "A와 B가 주어집니다. A부터 B까지 정수를 모두 더한 값을 출력하세요. A는 B보다 작거나 같습니다.", "input": "3 7", "output": "25",
-    "tests": [["3 7\n", "25"], ["-2 2\n", "0"], ["5 5\n", "5"]]
+    "id": "p18",
+    "level": "intermediate",
+    "title": "두 수 사이의 합",
+    "topic": "반복문·연산",
+    "statement": "A와 B가 주어집니다. A부터 B까지 정수를 모두 더한 값을 출력하세요. A는 B보다 작거나 같습니다.",
+    "input": "3 7",
+    "output": "25",
+    "tests": [
+      [
+        "3 7\n",
+        "25"
+      ],
+      [
+        "-2 2\n",
+        "0"
+      ],
+      [
+        "5 5\n",
+        "5"
+      ]
+    ]
   },
   {
-    "id": "p19", "level": "intermediate", "title": "3과 5의 배수 표시", "topic": "반복문·조건문",
-    "statement": "자연수 N이 주어집니다. 1부터 N까지 한 줄씩 출력하세요. 3의 배수는 <code>Fizz</code>, 5의 배수는 <code>Buzz</code>, 둘 다의 배수는 <code>FizzBuzz</code>를 출력하고 나머지는 숫자를 출력합니다.", "input": "5", "output": "1\n2\nFizz\n4\nBuzz",
-    "tests": [["5\n", "1\n2\nFizz\n4\nBuzz"], ["3\n", "1\n2\nFizz"], ["15\n", "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz"]]
+    "id": "p19",
+    "level": "intermediate",
+    "title": "3과 5의 배수 표시",
+    "topic": "반복문·조건문",
+    "statement": "자연수 N이 주어집니다. 1부터 N까지 한 줄씩 출력하세요. 3의 배수는 <code>Fizz</code>, 5의 배수는 <code>Buzz</code>, 둘 다의 배수는 <code>FizzBuzz</code>를 출력하고 나머지는 숫자를 출력합니다.",
+    "input": "5",
+    "output": "1\n2\nFizz\n4\nBuzz",
+    "tests": [
+      [
+        "5\n",
+        "1\n2\nFizz\n4\nBuzz"
+      ],
+      [
+        "3\n",
+        "1\n2\nFizz"
+      ],
+      [
+        "15\n",
+        "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz"
+      ]
+    ]
   },
   {
-    "id": "p20", "level": "intermediate", "title": "윤년 판별", "topic": "조건문",
-    "statement": "연도 Y가 주어집니다. 400으로 나누어떨어지거나, 4로 나누어떨어지면서 100으로 나누어떨어지지 않으면 <code>leap</code>, 아니면 <code>common</code>을 출력하세요.", "input": "2024", "output": "leap",
-    "tests": [["2024\n", "leap"], ["1900\n", "common"], ["2000\n", "leap"]]
+    "id": "p20",
+    "level": "intermediate",
+    "title": "윤년 판별",
+    "topic": "조건문",
+    "statement": "연도 Y가 주어집니다. 400으로 나누어떨어지거나, 4로 나누어떨어지면서 100으로 나누어떨어지지 않으면 <code>leap</code>, 아니면 <code>common</code>을 출력하세요.",
+    "input": "2024",
+    "output": "leap",
+    "tests": [
+      [
+        "2024\n",
+        "leap"
+      ],
+      [
+        "1900\n",
+        "common"
+      ],
+      [
+        "2000\n",
+        "leap"
+      ]
+    ]
   },
   {
-    "id": "p21", "level": "advanced", "title": "소수 판별", "topic": "반복문·조건문",
-    "statement": "2 이상의 정수 N이 주어집니다. N이 소수이면 <code>prime</code>, 아니면 <code>not prime</code>을 출력하세요.", "input": "17", "output": "prime",
-    "tests": [["17\n", "prime"], ["21\n", "not prime"], ["2\n", "prime"]]
+    "id": "p21",
+    "level": "advanced",
+    "title": "소수 판별",
+    "topic": "반복문·조건문",
+    "statement": "2 이상의 정수 N이 주어집니다. N이 소수이면 <code>prime</code>, 아니면 <code>not prime</code>을 출력하세요.",
+    "input": "17",
+    "output": "prime",
+    "tests": [
+      [
+        "17\n",
+        "prime"
+      ],
+      [
+        "21\n",
+        "not prime"
+      ],
+      [
+        "2\n",
+        "prime"
+      ]
+    ]
   },
   {
-    "id": "p22", "level": "advanced", "title": "피보나치 수", "topic": "반복문·알고리즘",
-    "statement": "정수 N이 주어집니다. F(0)=0, F(1)=1이고 F(N)=F(N-1)+F(N-2)일 때 F(N)을 출력하세요.", "input": "7", "output": "13",
-    "tests": [["7\n", "13"], ["0\n", "0"], ["10\n", "55"]]
+    "id": "p22",
+    "level": "advanced",
+    "title": "피보나치 수",
+    "topic": "반복문·알고리즘",
+    "statement": "정수 N이 주어집니다. F(0)=0, F(1)=1이고 F(N)=F(N-1)+F(N-2)일 때 F(N)을 출력하세요.",
+    "input": "7",
+    "output": "13",
+    "tests": [
+      [
+        "7\n",
+        "13"
+      ],
+      [
+        "0\n",
+        "0"
+      ],
+      [
+        "10\n",
+        "55"
+      ]
+    ]
   },
   {
-    "id": "p23", "level": "advanced", "title": "1부터 N까지 소수의 개수", "topic": "반복문·알고리즘",
-    "statement": "자연수 N이 주어집니다. 1부터 N까지 소수가 몇 개인지 출력하세요.", "input": "10", "output": "4",
-    "tests": [["10\n", "4"], ["1\n", "0"], ["20\n", "8"]]
+    "id": "p23",
+    "level": "advanced",
+    "title": "1부터 N까지 소수의 개수",
+    "topic": "반복문·알고리즘",
+    "statement": "자연수 N이 주어집니다. 1부터 N까지 소수가 몇 개인지 출력하세요.",
+    "input": "10",
+    "output": "4",
+    "tests": [
+      [
+        "10\n",
+        "4"
+      ],
+      [
+        "1\n",
+        "0"
+      ],
+      [
+        "20\n",
+        "8"
+      ]
+    ]
   },
   {
-    "id": "p24", "level": "advanced", "title": "회문 확인", "topic": "문자열",
-    "statement": "영어 소문자 단어가 주어집니다. 앞에서 읽어도 뒤에서 읽어도 같은 단어면 <code>yes</code>, 아니면 <code>no</code>를 출력하세요.", "input": "level", "output": "yes",
-    "tests": [["level\n", "yes"], ["python\n", "no"], ["abba\n", "yes"]]
+    "id": "p24",
+    "level": "advanced",
+    "title": "회문 확인",
+    "topic": "문자열",
+    "statement": "영어 소문자 단어가 주어집니다. 앞에서 읽어도 뒤에서 읽어도 같은 단어면 <code>yes</code>, 아니면 <code>no</code>를 출력하세요.",
+    "input": "level",
+    "output": "yes",
+    "tests": [
+      [
+        "level\n",
+        "yes"
+      ],
+      [
+        "python\n",
+        "no"
+      ],
+      [
+        "abba\n",
+        "yes"
+      ]
+    ]
   },
   {
-    "id": "p25", "level": "advanced", "title": "별 삼각형", "topic": "반복문",
-    "statement": "자연수 N이 주어집니다. 첫째 줄에는 별 1개, 다음 줄마다 별을 하나씩 늘려 N줄의 직각 삼각형을 출력하세요.", "input": "3", "output": "*\n**\n***",
-    "tests": [["3\n", "*\n**\n***"], ["1\n", "*"], ["5\n", "*\n**\n***\n****\n*****"]]
+    "id": "p25",
+    "level": "advanced",
+    "title": "별 삼각형",
+    "topic": "반복문",
+    "statement": "자연수 N이 주어집니다. 첫째 줄에는 별 1개, 다음 줄마다 별을 하나씩 늘려 N줄의 직각 삼각형을 출력하세요.",
+    "input": "3",
+    "output": "*\n**\n***",
+    "tests": [
+      [
+        "3\n",
+        "*\n**\n***"
+      ],
+      [
+        "1\n",
+        "*"
+      ],
+      [
+        "5\n",
+        "*\n**\n***\n****\n*****"
+      ]
+    ]
   },
   {
-    "id": "p26", "level": "advanced", "title": "문자 개수 세기", "topic": "문자열·반복문",
-    "statement": "첫째 줄에 영어 단어, 둘째 줄에 알파벳 한 글자가 주어집니다. 단어에 그 글자가 몇 번 나오는지 출력하세요.", "input": "banana\na", "output": "3",
-    "tests": [["banana\na\n", "3"], ["mississippi\ns\n", "4"], ["hello\nz\n", "0"]]
+    "id": "p26",
+    "level": "advanced",
+    "title": "문자 개수 세기",
+    "topic": "문자열·반복문",
+    "statement": "첫째 줄에 영어 단어, 둘째 줄에 알파벳 한 글자가 주어집니다. 단어에 그 글자가 몇 번 나오는지 출력하세요.",
+    "input": "banana\na",
+    "output": "3",
+    "tests": [
+      [
+        "banana\na\n",
+        "3"
+      ],
+      [
+        "mississippi\ns\n",
+        "4"
+      ],
+      [
+        "hello\nz\n",
+        "0"
+      ]
+    ]
   },
   {
-    "id": "p27", "level": "advanced", "title": "두 번째로 큰 수", "topic": "리스트·조건문",
-    "statement": "첫째 줄에 수의 개수 N, 둘째 줄에 N개의 정수가 주어집니다. 서로 다른 수 중 두 번째로 큰 수를 출력하세요. 서로 다른 수가 두 개 이상 주어집니다.", "input": "5\n3 8 1 6 8", "output": "6",
-    "tests": [["5\n3 8 1 6 8\n", "6"], ["4\n-1 -5 -2 -3\n", "-2"], ["3\n10 20 30\n", "20"]]
+    "id": "p27",
+    "level": "advanced",
+    "title": "두 번째로 큰 수",
+    "topic": "리스트·조건문",
+    "statement": "첫째 줄에 수의 개수 N, 둘째 줄에 N개의 정수가 주어집니다. 서로 다른 수 중 두 번째로 큰 수를 출력하세요. 서로 다른 수가 두 개 이상 주어집니다.",
+    "input": "5\n3 8 1 6 8",
+    "output": "6",
+    "tests": [
+      [
+        "5\n3 8 1 6 8\n",
+        "6"
+      ],
+      [
+        "4\n-1 -5 -2 -3\n",
+        "-2"
+      ],
+      [
+        "3\n10 20 30\n",
+        "20"
+      ]
+    ]
   },
   {
-    "id": "p28", "level": "advanced", "title": "최대공약수", "topic": "반복문·알고리즘",
-    "statement": "양의 정수 A와 B가 주어집니다. 두 수의 최대공약수를 출력하세요.", "input": "24 18", "output": "6",
-    "tests": [["24 18\n", "6"], ["7 13\n", "1"], ["100 10\n", "10"]]
+    "id": "p28",
+    "level": "advanced",
+    "title": "최대공약수",
+    "topic": "반복문·알고리즘",
+    "statement": "양의 정수 A와 B가 주어집니다. 두 수의 최대공약수를 출력하세요.",
+    "input": "24 18",
+    "output": "6",
+    "tests": [
+      [
+        "24 18\n",
+        "6"
+      ],
+      [
+        "7 13\n",
+        "1"
+      ],
+      [
+        "100 10\n",
+        "10"
+      ]
+    ]
   },
   {
-    "id": "p29", "level": "advanced", "title": "단어 순서 뒤집기", "topic": "문자열·리스트",
-    "statement": "공백으로 구분된 영어 단어들이 주어집니다. 단어의 순서를 거꾸로 바꾸어 공백 하나로 출력하세요.", "input": "I love python", "output": "python love I",
-    "tests": [["I love python\n", "python love I"], ["one two\n", "two one"], ["we learn every day\n", "day every learn we"]]
+    "id": "p29",
+    "level": "advanced",
+    "title": "단어 순서 뒤집기",
+    "topic": "문자열·리스트",
+    "statement": "공백으로 구분된 영어 단어들이 주어집니다. 단어의 순서를 거꾸로 바꾸어 공백 하나로 출력하세요.",
+    "input": "I love python",
+    "output": "python love I",
+    "tests": [
+      [
+        "I love python\n",
+        "python love I"
+      ],
+      [
+        "one two\n",
+        "two one"
+      ],
+      [
+        "we learn every day\n",
+        "day every learn we"
+      ]
+    ]
   },
   {
-    "id": "p30", "level": "advanced", "title": "중복 없이 순서 유지하기", "topic": "리스트·반복문",
-    "statement": "첫째 줄에 수의 개수 N, 둘째 줄에 N개의 정수가 주어집니다. 처음 나온 순서를 유지하며 중복을 제거해 출력하세요. 수 사이는 공백 하나로 구분합니다.", "input": "7\n1 2 1 3 2 4 3", "output": "1 2 3 4",
-    "tests": [["7\n1 2 1 3 2 4 3\n", "1 2 3 4"], ["4\n5 5 5 5\n", "5"], ["5\n-1 0 -1 2 0\n", "-1 0 2"]]
+    "id": "p30",
+    "level": "advanced",
+    "title": "중복 없이 순서 유지하기",
+    "topic": "리스트·반복문",
+    "statement": "첫째 줄에 수의 개수 N, 둘째 줄에 N개의 정수가 주어집니다. 처음 나온 순서를 유지하며 중복을 제거해 출력하세요. 수 사이는 공백 하나로 구분합니다.",
+    "input": "7\n1 2 1 3 2 4 3",
+    "output": "1 2 3 4",
+    "tests": [
+      [
+        "7\n1 2 1 3 2 4 3\n",
+        "1 2 3 4"
+      ],
+      [
+        "4\n5 5 5 5\n",
+        "5"
+      ],
+      [
+        "5\n-1 0 -1 2 0\n",
+        "-1 0 2"
+      ]
+    ]
+  },
+  {
+    "id": "p-9bd40c28-e549-4f7f-8f51-857c74cc4f43",
+    "level": "advanced",
+    "title": "공공데이터 활용",
+    "topic": "조건문 반복문",
+    "statement": "기후 관련 빅데이터를 활용하여 최적의 상품 추천",
+    "input": "18.5 75 0\n",
+    "output": "권장 상품: 우산(X), 제습기(O), 방한용품(X)\n추천 카테고리: 실내 가전\n",
+    "tests": [
+      [
+        "18.5 75 0\n",
+        "권장 상품: 우산(X), 제습기(O), 방한용품(X)\n추천 카테고리: 실내 가전\n"
+      ],
+      [
+        "25.0 85 1\n",
+        "권장 상품: 우산(O), 제습기(O), 방한용품(X)\n추천 카테고리: 우천 대비용품\n"
+      ],
+      [
+        "-5.0 40 0\n",
+        "권장 상품: 우산(X), 제습기(X), 방한용품(O)\n추천 카테고리: 방한 의류\n"
+      ],
+      [
+        "3.0 70 1\n",
+        "권장 상품: 우산(O), 제습기(O), 방한용품(O)\n추천 카테고리: 우천 대비용품\n"
+      ],
+      [
+        "22.0 45 0\n",
+        "권장 상품: 우산(X), 제습기(X), 방한용품(X)\n추천 카테고리: 일반 상품\n"
+      ],
+      [
+        "32.0 90 0\n",
+        "권장 상품: 우산(X), 제습기(O), 방한용품(X)\n추천 카테고리: 실내 가전\n"
+      ]
+    ]
   }
 ]
